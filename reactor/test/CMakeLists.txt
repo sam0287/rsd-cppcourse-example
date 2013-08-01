@@ -1,1 +1,1 @@
-cxx_test(qmatrix ReactionSystemTest.cpp)
+cxx_test(ReactionSystemTest ReactionSystemTest.cpp)
