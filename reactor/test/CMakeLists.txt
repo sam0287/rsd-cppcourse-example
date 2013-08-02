@@ -1,1 +1,1 @@
-cxx_test(ReactionSystemTest ReactionSystemTest.cpp)
+cxx_test(ReactionSystemTest ReactionSystemTest.cpp reactor_library) #specify a new test, and which files it depends on
