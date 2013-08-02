@@ -3,7 +3,7 @@
 
 // Test that the system has a name as expected.
 TEST(SpeciesTest, SpeciesHasAName) { // First argument is test group, second is test name
-  Species mySpecies("SomeName"); // Create a reaction system with a specified name
+  Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ("SomeName", mySpecies.GetName()); // Assert that the name should be as expected
 }
 
