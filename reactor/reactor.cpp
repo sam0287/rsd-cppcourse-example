@@ -14,7 +14,8 @@ int main(int argument_count, char ** command_line_arguments) // Define the main 
   
   std::cout << "A reaction system was created called \"" << my_simple_reaction_system.GetName() << " \"" << std::endl; // You use a dot to access a method of a class.
   // To get a quote symbol into a string, escape it with a slash
-  // << can be used to chain several outputs together, in this case, a literal string, and the output from calling GetName()
+  // << can be used to chain several outputs together, in this case, a literal string,
+  // and the output from calling GetName()
 
   return 0; // Exit successfully.
 }
