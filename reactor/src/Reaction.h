@@ -1,16 +1,22 @@
 #include <string> // use the string capabilities from the standard library
+#include <vector>
+
+#include "Species.h"
 
 #ifndef ONCE_REACTION_H
 #define ONCE_REACTION_H
 
+typedef double RateConstant;
+
 class Reaction // A "class" is a user defined type with built-in functions
 {   
 public:
-  Reaction(const std::string &input_name); // Declare constructor function.
-  const std::string & GetName(); // Declare a get name function.
+  Reaction(const RateConstant & rate); // Declare constructor function.
+  const RateConstant & GetRate();
 private:
-  std::string name; // A member variable for the class to store the name of the system.
-
+  RateConstant rate; // A member variable for the class to store the name of the system.
+  std::vector<SpeciesReference> reactants;
+  std::vector<SpeciesReference> products;
 };
 
 #endif //ONCE_REACTION_H

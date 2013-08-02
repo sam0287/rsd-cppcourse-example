@@ -3,6 +3,8 @@
 #ifndef ONCE_SPECIES_H
 #define ONCE_SPECIES_H
 
+typedef int SpeciesReference;
+
 class Species // A "class" is a user defined type with built-in functions
 {   
 public:
