@@ -5,7 +5,8 @@ include_directories(src) # This location "src" is added to the list of locations
 add_subdirectory(src) # Look in the CMakeLists.txt file for explanation on how to build our library code
 add_executable(reactor reactor.cpp) # The executable to make is 
 									 # called "reactor" and depends on the listed source files and libraries
-target_link_libraries(reactor reactor_library)
+target_link_libraries(reactor reactor_library) # Add our library of reaction system code to the executable
+
 # Boilerplate to enable the Google testing framework
 INCLUDE(ExternalProject)
 set(EXTERNAL_ROOT ${CMAKE_BINARY_DIR}/external)
