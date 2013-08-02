@@ -29,9 +29,7 @@ ExternalProject_Add(
     # Disable install step
     INSTALL_COMMAND ""
     # Wrap download, configure and build steps in a script to log output
-    LOG_DOWNLOAD ON
-    LOG_CONFIGURE ON
-    LOG_BUILD ON)
+    )
 
 add_definitions(-DGTEST_LANG_CXX11)
 
@@ -41,7 +39,7 @@ macro(cxx_test name source)
   include_directories(${source_dir}/include)
   # Better, but only works on CMake 2.8.6?
   # get_target_property(THISTEST_INCLUDE test_${name} INCLUDE_DIRECTORIES)
-  # set_target_properties(test_${name} PROPERTIES INCLUDE_DIRECTORIES
+  # set_target_properties(Test${name} PROPERTIES INCLUDE_DIRECTORIES
   #                       "${source_dir}/include;${THISTEST_INCLUDE}") 
 
   add_executable(test_${name} ${source})
@@ -60,6 +58,6 @@ macro(cxx_test name source)
     target_link_libraries(test_${name} ${ARGN})
   endif(NOT "${ARGN}" STREQUAL "")
 
-  add_test(cxx_${name} ${EXECUTABLE_OUTPUT_PATH}/test_${name}
+  add_test(${name} ${EXECUTABLE_OUTPUT_PATH}/test_${name}
               --gtest_output=xml:${CMAKE_BINARY_DIR}/test-results/test_${name}.xml)
 endmacro()
