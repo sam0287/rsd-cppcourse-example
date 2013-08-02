@@ -3,7 +3,7 @@ project (Reactor)
 include_directories(src) # This location "src" is added to the list of locations 
                          # which are searched when resolving #include statements in C/C++
 add_subdirectory(src) # Look in the CMakeLists.txt file for explanation on how to build our library code
-add_executable(reactor main.cpp) # The executable to make is 
+add_executable(reactor reactor.cpp) # The executable to make is 
 									 # called "reactor" and depends on the listed source files and libraries
 target_link_libraries(reactor reactor_library)
 # Boilerplate to enable the Google testing framework
