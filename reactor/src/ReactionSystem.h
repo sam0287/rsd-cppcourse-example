@@ -1,16 +1,16 @@
 #include <string> // use the string capabilities from the standard library
 
-#ifndef ONCE_SPECIES_H
-#define ONCE_SPECIES_H
+#ifndef ONCE_REACTIONSYSTEM_H
+#define ONCE_REACTIONSYSTEM_H
 
-class Species // A "class" is a user defined type with built-in functions
+class ReactionSystem // A "class" is a user defined type with built-in functions
 {   
 public:
-  Species(const std::string &input_name); // Declare constructor function.
+  ReactionSystem(const std::string &input_name); // Declare constructor function.
   const std::string & GetName(); // Declare a get name function.
 private:
   std::string name; // A member variable for the class to store the name of the system.
 
 };
 
-#endif //ONCE_SPECIES_H
+#endif //ONCE_REACTIONSYSTEM_H
