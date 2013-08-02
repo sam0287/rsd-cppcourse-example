@@ -10,6 +10,8 @@ public:
   const std::string & GetName(); // Declare a get name function.
 private:
   std::string name; // A member variable for the class to store the name of the system.
+  std::vector<Reaction> reactions;
+  std::vector<Species> species;
 
 };
 
