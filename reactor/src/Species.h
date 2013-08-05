@@ -9,7 +9,7 @@ class Species // A "class" is a user defined type with built-in functions
 {   
 public:
   Species(const std::string &input_name); // Declare constructor function.
-  const std::string & GetName(); // Declare a get name function.
+  const std::string & GetName() const;// Declare a get name function.
 private:
   std::string name; // A member variable for the class to store the name of the system.
 

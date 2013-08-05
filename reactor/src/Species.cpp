@@ -6,7 +6,7 @@ Species::Species(const std::string &input_name):
     // do nothing
   }
 
-const std::string & Species::GetName() 
+const std::string & Species::GetName() const
 { 
 	// a function whose return type is a standard string, with no input arguments
 	// the ampersand and const will be explained later.
