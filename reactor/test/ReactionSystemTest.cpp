@@ -72,7 +72,26 @@ TEST_F(ReactionSystemTest, ReactionSystemGivesSpecies){
 	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
 }
 
+TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){
+	myReactionSystem.AddSpecies(&calcium);
+	myReactionSystem.AddSpecies(&carbon);
+	std::vector<Species *> expectation;
+	expectation.push_back(&calcium);
+	expectation.push_back(&carbon);
+	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
+}
+
 TEST_F(ReactionSystemTest, ReactionSystemIgnoresDuplicateSpecies){
+	myReactionSystem.AddSpecies(&calcium);
+	myReactionSystem.AddSpecies(&carbon);
+	myReactionSystem.AddSpecies(&carbon);
+	std::vector<Species *> expectation;
+	expectation.push_back(&calcium);
+	expectation.push_back(&carbon);
+	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemIgnoresManyDuplicateSpecies){
 	myReactionSystem.AddReaction(forward);
     myReactionSystem.AddReaction(reverse);
 	std::vector<Species *> expectation;

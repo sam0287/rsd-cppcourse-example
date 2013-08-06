@@ -18,6 +18,7 @@ public:
   const std::vector< double> GetConcentrations() const ; // return array of species concentrations
   void SetConcentrations(const std::vector<double> & );
   void AddSpecies(Species * species);
+  void AddSpecies(Species & species){AddSpecies(&species);}
   std::vector<Species *> & GetSpecies() { return species;}
 private:
   void EnsureAllSpeciesPresent(const Reaction& reaction);
