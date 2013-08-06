@@ -16,7 +16,7 @@ public:
 
 private:
   std::vector< const Reaction * > reactions;
-  std::vector< const Species * > species;
+  std::vector< Species * > species;
 };
 
 #endif //ONCE_REACTIONSYSTEM_H
