@@ -82,3 +82,8 @@ const std::vector<double> ReactionSystem::GetRatesOfChange() const {
 	}
 	return rates_of_change;
 }
+
+ void ReactionSystem::operator()(const std::vector<double> & concentrations, std::vector<double> & rates, double time){
+ 	SetConcentrations(concentrations);
+ 	rates=GetRatesOfChange();
+ }

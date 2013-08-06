@@ -131,6 +131,29 @@ TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChange){
 	ASSERT_EQ(rates_of_change,myReactionSystem.GetRatesOfChange());
 }
 
+TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChangeInFormatExpectedByODEINT){
+	myReactionSystem.AddReaction(forward);
+    myReactionSystem.AddReaction(reverse);
+	std::vector<double> expected_rates_of_change;
+	expected_rates_of_change.push_back(-9.0*9.0*11.0*13.0+11.0*17.0); //calcium
+	expected_rates_of_change.push_back(-9.0*9.0*11.0*13.0+11.0*17.0); //carbon
+	expected_rates_of_change.push_back(-9.0*9.0*11.0*13.0+11.0*17.0); //oxygen
+	expected_rates_of_change.push_back(9.0*9.0*11.0*13.0-11.0*17.0); //calcium carbonate
+
+	std::vector<double> concentrations;
+	concentrations.push_back(9.0);
+	concentrations.push_back(11.0);
+	concentrations.push_back(13.0);
+	concentrations.push_back(17.0);
+
+	std::vector<double> actual_rates_of_change;
+	myReactionSystem(concentrations,actual_rates_of_change,0);
+
+
+
+	ASSERT_EQ(expected_rates_of_change,actual_rates_of_change);
+}
+
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -24,6 +24,8 @@ public:
   void AddSpecies(Species & species){AddSpecies(&species);}
   std::vector<Species *> & GetSpecies() { return species;}
 
+  void operator()(const std::vector<double> & concentrations, std::vector<double> & rates, double time);
+
 private:
   void EnsureAllSpeciesPresent(const Reaction& reaction);
   bool SpeciesAlreadyPresent(Species * new_species);
