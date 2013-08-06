@@ -20,8 +20,8 @@ public:
   void AddReactant(const Species &  species){reactants.push_back(&species);}
   void AddProduct(const Species  &  species){products.push_back(&species);}
 
-  const std::vector< const Species * > GetReactants() const { return reactants;}
-  const std::vector< const Species * > GetProducts() const { return products;}
+  const std::vector< const Species * > & GetReactants() const { return reactants;}
+  const std::vector< const Species * > & GetProducts() const { return products;}
 private:
   RateConstant rate; // A member variable for the class to store the name of the system.
   std::vector< const Species * > reactants;

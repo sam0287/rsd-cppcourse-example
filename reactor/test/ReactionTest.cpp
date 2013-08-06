@@ -25,7 +25,7 @@ TEST_F(ReactionTest, ReactionHasRate) { // First argument is test group, second 
 TEST_F(ReactionTest, ReactionCanHaveReactant) {
 	myReaction.AddReactant(calcium);
 	EXPECT_EQ(myReaction.GetReactants()[0]->GetName(),"Ca");
-	EXPECT_EQ(myReaction.GetReactants()[0],&calcium);
+	EXPECT_EQ(myReaction.GetReactants()[0], &calcium);
 }
 
 TEST_F(ReactionTest, ReactionCanHaveReactants) {
@@ -33,16 +33,16 @@ TEST_F(ReactionTest, ReactionCanHaveReactants) {
 	myReaction.AddReactant(carbon);
 	myReaction.AddReactant(oxygen);
 	EXPECT_EQ(myReaction.GetReactants()[0]->GetName(),"Ca");
-	EXPECT_EQ(myReaction.GetReactants()[0],&calcium);
-	EXPECT_EQ(myReaction.GetReactants()[1],&carbon);
-	EXPECT_EQ(myReaction.GetReactants()[2],&oxygen);
+	EXPECT_EQ(myReaction.GetReactants()[0], &calcium);
+	EXPECT_EQ(myReaction.GetReactants()[1], &carbon);
+	EXPECT_EQ(myReaction.GetReactants()[2], &oxygen);
 	EXPECT_EQ(myReaction.GetReactants().size(),3);
 }
 
 TEST_F(ReactionTest, ReactionCanHaveProduct) {
 	myReaction.AddProduct(calcium_carbonate);
-	EXPECT_EQ(myReaction.GetProducts()[0]->GetName(),"CaCO3");
-	EXPECT_EQ(myReaction.GetProducts()[0],&calcium_carbonate);
+	EXPECT_EQ(myReaction.GetProducts()[0]->GetName(), "CaCO3");
+	EXPECT_EQ(myReaction.GetProducts()[0], &calcium_carbonate);
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
