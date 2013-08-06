@@ -55,8 +55,22 @@ TEST_F(ReactionTest, ReactionCanCalculateFlux) {
 	myReaction.AddReactant(carbon);
 	myReaction.AddReactant(oxygen);
 	myReaction.AddProduct(calcium_carbonate);
-	
+
 	EXPECT_EQ(5.0*2.0*3.0*5.0, myReaction.GetFlux());
+}
+
+TEST_F(ReactionTest, ReactionCanContributeToRatesOfChange) {
+	myReaction.AddReactant(calcium);
+	myReaction.AddReactant(carbon);
+	myReaction.AddReactant(oxygen);
+	myReaction.AddProduct(calcium_carbonate);
+
+	myReaction.ContributeToRatesOfChange();
+
+	EXPECT_EQ(-1.0*5.0*2.0*3.0*5.0, calcium.GetRateOfChange());
+	EXPECT_EQ(-1.0*5.0*2.0*3.0*5.0, carbon.GetRateOfChange());
+	EXPECT_EQ(-1.0*5.0*2.0*3.0*5.0, oxygen.GetRateOfChange());
+	EXPECT_EQ(5.0*2.0*3.0*5.0, calcium_carbonate.GetRateOfChange());
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests

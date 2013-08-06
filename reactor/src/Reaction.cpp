@@ -15,6 +15,20 @@ RateConstant Reaction::GetRate()
 
 void Reaction::ContributeToRatesOfChange() const 
 {
+	double flux=GetFlux();
+	// for each species in the reactants
+	for (std::vector<Species *>::const_iterator each_reactant=GetReactants().begin(); each_reactant!=GetReactants().end(); each_reactant++)
+	{
+		// subtract the flux from the rate
+		(*each_reactant)->ContributeToRateOfChange(-1.0*flux);
+	}
+
+	// for each species in the products
+	for (std::vector<Species *>::const_iterator each_product=GetProducts().begin(); each_product!=GetProducts().end(); each_product++)
+	{
+		// add the flux to the rate
+		(*each_product)->ContributeToRateOfChange(flux);
+	}
 
 }
 
