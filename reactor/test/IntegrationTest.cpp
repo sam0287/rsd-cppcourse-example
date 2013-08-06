@@ -21,6 +21,9 @@ protected:
 		decay.AddReactant(original);
 		decay.AddProduct(decay_product);
 
+		simple_decay_system.AddSpecies(original);
+		simple_decay_system.AddSpecies(decay_product);
+		
 		original.SetConcentration(100.0);
 		decay_product.SetConcentration(0.0);
 

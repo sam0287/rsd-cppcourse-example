@@ -1,9 +1,12 @@
 #include <string> // use the string capabilities from the standard library
 #include <vector>
 #include <set>
+#include <exception>
 
 #include "Species.h"
 #include "Reaction.h"
+
+class SpeciesNotFirstAddedException: public std::exception {};
 
 #ifndef ONCE_REACTIONSYSTEM_H
 #define ONCE_REACTIONSYSTEM_H
@@ -20,6 +23,8 @@ public:
   const std::vector<double> GetConcentrations() const ; // return array of species concentrations
   void SetConcentrations(const std::vector<double> & );
 
+
+
   void AddSpecies(Species * species);
   void AddSpecies(Species & species){AddSpecies(&species);}
   std::vector<Species *> & GetSpecies() { return species;}
@@ -27,11 +32,8 @@ public:
   void operator()(const std::vector<double> & concentrations, std::vector<double> & rates, double time);
 
 private:
-  void EnsureAllSpeciesPresent(const Reaction& reaction);
-  bool SpeciesAlreadyPresent(Species * new_species);
+ 
   std::vector< const Reaction * > reactions;
   std::vector< Species * > species;
-  std::set<Species *> species_set; // C++ has no ordered set without using boost: use both a vector and a set.
 };
-
 #endif //ONCE_REACTIONSYSTEM_H
