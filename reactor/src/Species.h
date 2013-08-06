@@ -1,5 +1,7 @@
 #include <string> // use the string capabilities from the standard library
 
+#include <boost/numeric/odeint.hpp>
+
 #ifndef ONCE_SPECIES_H
 #define ONCE_SPECIES_H
 
