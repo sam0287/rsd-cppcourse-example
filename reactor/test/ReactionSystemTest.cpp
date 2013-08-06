@@ -53,12 +53,30 @@ TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { // First ar
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
-	 myReactionSystem.AddReaction(forward);
+	myReactionSystem.AddReaction(forward);
 	std::vector<double> expectation;
 	expectation.push_back(2.0);
 	expectation.push_back(3.0);
 	expectation.push_back(5.0);
 	expectation.push_back(7.0);
+	ASSERT_EQ(expectation,myReactionSystem.GetConcentrations());
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
+	myReactionSystem.AddReaction(forward);
+	std::vector<double> initial_state;
+	initial_state.push_back(2.0);
+	initial_state.push_back(3.0);
+	initial_state.push_back(5.0);
+	initial_state.push_back(7.0);
+	ASSERT_EQ(initial_state, myReactionSystem.GetConcentrations());
+
+	std::vector<double> expectation;
+	expectation.push_back(9.0);
+	expectation.push_back(11.0);
+	expectation.push_back(13.0);
+	expectation.push_back(17.0);
+	myReactionSystem.SetConcentrations(expectation);
 	ASSERT_EQ(expectation,myReactionSystem.GetConcentrations());
 }
 
@@ -101,6 +119,8 @@ TEST_F(ReactionSystemTest, ReactionSystemIgnoresManyDuplicateSpecies){
 	expectation.push_back(&calcium_carbonate);
 	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
 }
+
+
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
