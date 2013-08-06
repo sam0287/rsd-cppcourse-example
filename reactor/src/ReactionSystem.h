@@ -15,9 +15,9 @@ public:
   void AddReaction(const Reaction& reaction);
   const std::vector<const Reaction *> & GetReactions() {return reactions;}
   
-  const std::vector<const double> & GetRates() const; // Given the current species concentrations, return the rates of change
+  const std::vector<double> GetRatesOfChange() const; // Given the current species concentrations, return the rates of change
 
-  const std::vector< double> GetConcentrations() const ; // return array of species concentrations
+  const std::vector<double> GetConcentrations() const ; // return array of species concentrations
   void SetConcentrations(const std::vector<double> & );
 
   void AddSpecies(Species * species);

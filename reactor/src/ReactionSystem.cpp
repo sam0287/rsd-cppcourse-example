@@ -40,7 +40,7 @@ bool ReactionSystem::SpeciesAlreadyPresent(Species * new_species)
 	return !(species_set.find(new_species)==species_set.end());
 }
 
- const std::vector< double> ReactionSystem::GetConcentrations() const {
+const std::vector< double> ReactionSystem::GetConcentrations() const {
 	std::vector<double> result;
 	// we are not pre-allocating, this will be slow.
 	// Idea is to try to make a maximally-readable solution without thinking about speed first.
@@ -62,4 +62,23 @@ void ReactionSystem::SetConcentrations(const std::vector<double> & concentration
 		(*each_species)->SetConcentration(*each_concentration);
 		each_concentration++;
 	}
+}
+
+const std::vector<double> ReactionSystem::GetRatesOfChange() const {
+	std::vector<double> rates_of_change;
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		(*each_species)->ReSetRateOfChange();
+	}
+
+	for (std::vector<const Reaction *>::const_iterator each_reaction=reactions.begin();each_reaction!=reactions.end();each_reaction++)
+	{
+		(*each_reaction)->ContributeToRatesOfChange();
+	}
+
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		rates_of_change.push_back((*each_species)->GetRateOfChange());
+	}
+	return rates_of_change;
 }

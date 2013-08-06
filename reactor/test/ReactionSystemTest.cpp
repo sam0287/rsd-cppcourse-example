@@ -12,8 +12,8 @@ protected:
 	Species calcium_carbonate;
 
 	ReactionSystemTest():
-		forward(5.0),
-		reverse(5.0), 
+		forward(9.0),
+		reverse(11.0), 
 		calcium("Ca"), 
 		carbon("C"), 
 		oxygen("O"), 
@@ -120,7 +120,16 @@ TEST_F(ReactionSystemTest, ReactionSystemIgnoresManyDuplicateSpecies){
 	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
 }
 
-
+TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChange){
+	myReactionSystem.AddReaction(forward);
+    myReactionSystem.AddReaction(reverse);
+	std::vector<double> rates_of_change;
+	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //calcium
+	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //carbon
+	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //oxygen
+	rates_of_change.push_back(9.0*2.0*3.0*5.0-11.0*7.0); //calcium carbonate
+	ASSERT_EQ(rates_of_change,myReactionSystem.GetRatesOfChange());
+}
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
