@@ -28,6 +28,11 @@ protected:
 		reverse.AddProduct(carbon);
 		reverse.AddProduct(oxygen);
 		reverse.AddReactant(calcium_carbonate);
+
+		calcium.SetConcentration(2.0);
+		carbon.SetConcentration(3.0);
+		oxygen.SetConcentration(5.0);
+		calcium_carbonate.SetConcentration(7.0);
 	};
 };
 
@@ -45,6 +50,37 @@ TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { // First ar
   ASSERT_EQ(2, myReactionSystem.GetReactions().size());
   ASSERT_EQ(&forward, myReactionSystem.GetReactions()[0]);
   ASSERT_EQ(&reverse, myReactionSystem.GetReactions()[1]);
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
+	 myReactionSystem.AddReaction(forward);
+	std::vector<double> expectation;
+	expectation.push_back(2.0);
+	expectation.push_back(3.0);
+	expectation.push_back(5.0);
+	expectation.push_back(7.0);
+	ASSERT_EQ(expectation,myReactionSystem.GetConcentrations());
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemGivesSpecies){
+	myReactionSystem.AddReaction(forward);
+	std::vector<Species *> expectation;
+	expectation.push_back(&calcium);
+	expectation.push_back(&carbon);
+	expectation.push_back(&oxygen);
+	expectation.push_back(&calcium_carbonate);
+	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemIgnoresDuplicateSpecies){
+	myReactionSystem.AddReaction(forward);
+    myReactionSystem.AddReaction(reverse);
+	std::vector<Species *> expectation;
+	expectation.push_back(&calcium);
+	expectation.push_back(&carbon);
+	expectation.push_back(&oxygen);
+	expectation.push_back(&calcium_carbonate);
+	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests

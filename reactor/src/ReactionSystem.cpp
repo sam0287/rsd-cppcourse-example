@@ -7,5 +7,48 @@ ReactionSystem::ReactionSystem()
 
 void ReactionSystem::AddReaction(const Reaction& reaction) 
 { 
-	reactions.push_back(&reaction); 
+	reactions.push_back(&reaction);
+	EnsureAllSpeciesPresent(reaction);
+}
+
+void ReactionSystem::AddSpecies(Species * new_species)
+{
+	// not as simple as just push_back onto species as it might already be a species in the system
+	if (!SpeciesAlreadyPresent(new_species))
+	{
+		species.push_back(new_species);
+		species_set.insert(new_species);
+	}
+}
+
+void ReactionSystem::EnsureAllSpeciesPresent(const Reaction& reaction) 
+{
+	// The list needs to not contain any duplicates
+	for (std::vector<Species *>::const_iterator each_species=reaction.GetReactants().begin(); each_species!=reaction.GetReactants().end();each_species++)
+	{
+		AddSpecies(*each_species);
+	}
+
+	for (std::vector<Species *>::const_iterator each_species=reaction.GetProducts().begin(); each_species!=reaction.GetProducts().end();each_species++)
+	{
+		AddSpecies(*each_species);
+	}
+}
+
+bool ReactionSystem::SpeciesAlreadyPresent(Species * new_species)
+{
+	return !(species_set.find(new_species)==species_set.end());
+}
+
+ const std::vector< double> ReactionSystem::GetConcentrations() const {
+	std::vector<double> result;
+	// we are not pre-allocating, this will be slow.
+	// Idea is to try to make a maximally-readable solution without thinking about speed first.
+
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		result.push_back((*each_species)->GetConcentration());
+	}
+
+	return result;
 }
