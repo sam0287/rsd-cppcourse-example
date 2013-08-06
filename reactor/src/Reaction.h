@@ -22,6 +22,10 @@ public:
 
   const std::vector<  Species * > & GetReactants() const { return reactants;}
   const std::vector<  Species * > & GetProducts() const { return products;}
+
+  void ContributeToRatesOfChange() const ;
+
+  double GetFlux() const ; 
 private:
   RateConstant rate; // A member variable for the class to store the name of the system.
   std::vector< Species * > reactants;

@@ -14,7 +14,12 @@ protected:
 		carbon("C"), 
 		oxygen("O"), 
 		calcium_carbonate("CaCO3")
-	{};
+	{
+		calcium.SetConcentration(2.0);
+		carbon.SetConcentration(3.0);
+		oxygen.SetConcentration(5.0);
+		calcium_carbonate.SetConcentration(7.0);
+	};
 };
 
 // Test that the system has a name as expected.
@@ -43,6 +48,15 @@ TEST_F(ReactionTest, ReactionCanHaveProduct) {
 	myReaction.AddProduct(calcium_carbonate);
 	EXPECT_EQ(myReaction.GetProducts()[0]->GetName(), "CaCO3");
 	EXPECT_EQ(myReaction.GetProducts()[0], &calcium_carbonate);
+}
+
+TEST_F(ReactionTest, ReactionCanCalculateFlux) {
+	myReaction.AddReactant(calcium);
+	myReaction.AddReactant(carbon);
+	myReaction.AddReactant(oxygen);
+	myReaction.AddProduct(calcium_carbonate);
+	
+	EXPECT_EQ(5.0*2.0*3.0*5.0, myReaction.GetFlux());
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
