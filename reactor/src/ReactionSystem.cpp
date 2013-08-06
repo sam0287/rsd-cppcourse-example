@@ -4,3 +4,8 @@ ReactionSystem::ReactionSystem()
 {
   // do nothing
 }
+
+void ReactionSystem::AddReaction(const Reaction& reaction) 
+{ 
+	reactions.push_back(&reaction); 
+}
