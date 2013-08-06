@@ -34,17 +34,17 @@ protected:
 // Test that the system has a name as expected.
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveReaction) { // First argument is test group, second is test name
   myReactionSystem.AddReaction(forward);
-  ASSERT_EQ(1,myReactionSystem.GetReactions().size());
-  ASSERT_EQ(&forward,myReactionSystem.GetReactions()[0]);
+  ASSERT_EQ(1, myReactionSystem.GetReactions().size());
+  ASSERT_EQ(&forward, myReactionSystem.GetReactions()[0]);
 }
 
 // Test that the system has a name as expected.
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { // First argument is test group, second is test name
   myReactionSystem.AddReaction(forward);
   myReactionSystem.AddReaction(reverse);
-  ASSERT_EQ(2,myReactionSystem.GetReactions().size());
-  ASSERT_EQ(&forward,myReactionSystem.GetReactions()[0]);
-  ASSERT_EQ(&reverse,myReactionSystem.GetReactions()[1]);
+  ASSERT_EQ(2, myReactionSystem.GetReactions().size());
+  ASSERT_EQ(&forward, myReactionSystem.GetReactions()[0]);
+  ASSERT_EQ(&reverse, myReactionSystem.GetReactions()[1]);
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
