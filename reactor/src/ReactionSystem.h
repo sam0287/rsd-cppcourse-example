@@ -6,7 +6,6 @@
 #include "Species.h"
 #include "Reaction.h"
 
-class SpeciesNotFirstAddedException: public std::exception {};
 
 #ifndef ONCE_REACTIONSYSTEM_H
 #define ONCE_REACTIONSYSTEM_H
