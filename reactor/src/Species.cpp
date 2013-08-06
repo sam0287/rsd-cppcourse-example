@@ -1,7 +1,7 @@
 #include "Species.h" // Include the declaration of the Species..
 
 Species::Species(const std::string &input_name):
-    name(input_name) // Initialise the name member variable from the input argument.
+    name(input_name), concentration(0) // Initialise the name member variable from the input argument.
   {
     // do nothing
   }
