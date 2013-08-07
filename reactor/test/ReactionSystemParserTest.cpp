@@ -17,8 +17,9 @@ TEST_F(ReactionSystemParserTest, ParserCanStart) {
 	delete system;
 }
 
+
 TEST_F(ReactionSystemParserTest, ParseLine) {
-	std::istringstream source("A + B ->(2.0) C + D");
+	std::string source("A + B > 2.0 > C + D");
 	std::vector<std::string> reactant_names;
  	std::vector<std::string> product_names;
  	double rate(0.0);

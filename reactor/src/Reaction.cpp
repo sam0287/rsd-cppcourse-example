@@ -49,7 +49,7 @@ std::ostream & operator<<(std::ostream &stream, const Reaction& reaction){
 	{
 		stream << (*each_species)->GetName() << " + ";
 	}
-	stream << (*each_species)->GetName() << " ->(" << reaction.GetRate() << ") ";
+	stream << (*each_species)->GetName() << " > " << reaction.GetRate() << " > ";
 	// for each species in the products
 
 	for (each_species=reaction.GetProducts().begin(); each_species!=--reaction.GetProducts().end(); each_species++)

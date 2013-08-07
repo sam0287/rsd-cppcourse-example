@@ -15,7 +15,7 @@ class ReactionSystemParser
 public:
   ReactionSystemParser(){};
   ReactionSystem * FromStream(std::istream & source);
-  void ParseLine(std::istream & source, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate);
+  void ParseLine(std::string & source, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate);
 private:
 
 };
