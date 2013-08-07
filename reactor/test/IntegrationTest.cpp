@@ -4,11 +4,21 @@
 
 #include <boost/numeric/odeint.hpp>
 
+class WrapReactionSystemForODEINT
+{
+public:
+	ReactionSystem &system;
+	WrapReactionSystemForODEINT(ReactionSystem & system):system(system){}
+	void operator() ( const std::vector<double> &x , std::vector<double> &dxdt , const double)
+    {
+        system.GetRatesGivenConcentrations(x,dxdt);
+    }
+};
+
 class SimpleDecaySystemTest: public ::testing::Test {
 protected:
 	ReactionSystem simple_decay_system;
 	Reaction decay;
-
 	Species &original;
 	Species &decay_product;
 
@@ -39,7 +49,8 @@ void observe_integration(const std::vector<double> &concentrations , const doubl
 // Test that the system has a name as expected.
 TEST_F(SimpleDecaySystemTest, ODEINTCanIntegrate) { // First argument is test group, second is test name
 	std::vector<double> concentrations=simple_decay_system.GetConcentrations();
-	int step_count=boost::numeric::odeint::integrate(simple_decay_system, concentrations , 0.0, 1.5, 0.1, observe_integration);
+	WrapReactionSystemForODEINT wrapper(simple_decay_system);
+	int step_count=boost::numeric::odeint::integrate(wrapper, concentrations , 0.0, 1.5, 0.1, observe_integration);
 	// the concentration of the reactant should be
 	// initial* exp(-time*rate)
 	// and of the product

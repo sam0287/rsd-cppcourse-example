@@ -121,7 +121,7 @@ TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChangeInFormatExpect
 	concentrations.push_back(17.0);
 
 	std::vector<double> actual_rates_of_change;
-	myReactionSystem(concentrations,actual_rates_of_change,0);
+	myReactionSystem.GetRatesGivenConcentrations(concentrations,actual_rates_of_change);
 
 	ASSERT_EQ(expected_rates_of_change,actual_rates_of_change);
 }

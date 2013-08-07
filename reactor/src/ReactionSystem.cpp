@@ -15,6 +15,13 @@ Species & ReactionSystem::NewSpecies(const std::string &name){
 	return *species.back();
 }
 
+ReactionSystem::~ReactionSystem(){
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		delete *each_species;
+	}
+}
+
 const std::vector< double> ReactionSystem::GetConcentrations() const {
 	std::vector<double> result;
 	// we are not pre-allocating, this will be slow.
@@ -58,7 +65,7 @@ const std::vector<double> ReactionSystem::GetRatesOfChange() const {
 	return rates_of_change;
 }
 
- void ReactionSystem::operator()(const std::vector<double> & concentrations, std::vector<double> & rates, double time){
+ void ReactionSystem::GetRatesGivenConcentrations(const std::vector<double> & concentrations, std::vector<double> & rates){
  	SetConcentrations(concentrations);
  	rates=GetRatesOfChange();
  }
