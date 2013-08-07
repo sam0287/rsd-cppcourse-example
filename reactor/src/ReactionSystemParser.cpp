@@ -9,9 +9,11 @@ ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
   	// D + E ->(rate2) A
 
   	// we need to, for each line,
-  	//   determine the reactant names
-  	//   determine the rate
-  	//   determine the product names
+ 	{
+ 		std::vector<std::string> reactant_names;
+ 		std::vector<std::string> product_names;
+ 		double rate;
+ 		ParseLine(source, reactant_names, product_names, rate);
   	//	 create a new reaction with the rate
   	//   for each named species
   	//   	  determine if it is new
@@ -22,6 +24,12 @@ ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
   	//   for each product
   	//  	  add the species to the products
   	//   determine the rate
-
+ 	}
   	return result;
+}
+
+void ReactionSystemParser::ParseLine(std::istream & source, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate){
+	//   determine the reactant names
+  	//   determine the rate
+  	//   determine the product names
 }
