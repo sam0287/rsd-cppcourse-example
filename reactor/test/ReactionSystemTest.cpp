@@ -4,6 +4,7 @@
 class ReactionSystemTest: public ::testing::Test {
 protected:
 	ReactionSystem myReactionSystem;
+	ReactionSystem emptyReactionSystem;
 	Reaction forward;
 	Reaction reverse;
 	Species calcium;
@@ -29,6 +30,14 @@ protected:
 		reverse.AddProduct(oxygen);
 		reverse.AddReactant(calcium_carbonate);
 
+		myReactionSystem.AddReaction(forward);
+    	myReactionSystem.AddReaction(reverse);
+
+	    myReactionSystem.AddSpecies(&calcium);
+		myReactionSystem.AddSpecies(&carbon);
+		myReactionSystem.AddSpecies(&oxygen);
+		myReactionSystem.AddSpecies(&calcium_carbonate);
+
 		calcium.SetConcentration(2.0);
 		carbon.SetConcentration(3.0);
 		oxygen.SetConcentration(5.0);
@@ -36,29 +45,21 @@ protected:
 	};
 };
 
-// Test that the system has a name as expected.
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveReaction) { // First argument is test group, second is test name
-  myReactionSystem.AddReaction(forward);
-  ASSERT_EQ(1, myReactionSystem.GetReactions().size());
-  ASSERT_EQ(&forward, myReactionSystem.GetReactions()[0]);
+  emptyReactionSystem.AddReaction(forward);
+  ASSERT_EQ(1, emptyReactionSystem.GetReactions().size());
+  ASSERT_EQ(&forward, emptyReactionSystem.GetReactions()[0]);
 }
 
-// Test that the system has a name as expected.
-TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { // First argument is test group, second is test name
-  myReactionSystem.AddReaction(forward);
-  myReactionSystem.AddReaction(reverse);
-  ASSERT_EQ(2, myReactionSystem.GetReactions().size());
-  ASSERT_EQ(&forward, myReactionSystem.GetReactions()[0]);
-  ASSERT_EQ(&reverse, myReactionSystem.GetReactions()[1]);
+TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { 
+  emptyReactionSystem.AddReaction(forward);
+  emptyReactionSystem.AddReaction(reverse);
+  ASSERT_EQ(2, emptyReactionSystem.GetReactions().size());
+  ASSERT_EQ(&forward, emptyReactionSystem.GetReactions()[0]);
+  ASSERT_EQ(&reverse, emptyReactionSystem.GetReactions()[1]);
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
-	myReactionSystem.AddReaction(forward);
-	myReactionSystem.AddSpecies(&calcium);
-	myReactionSystem.AddSpecies(&carbon);
-	myReactionSystem.AddSpecies(&oxygen);
-	myReactionSystem.AddSpecies(&calcium_carbonate);
-
 	std::vector<double> expectation;
 	expectation.push_back(2.0);
 	expectation.push_back(3.0);
@@ -68,12 +69,6 @@ TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
-	myReactionSystem.AddReaction(forward);
-	myReactionSystem.AddSpecies(&calcium);
-	myReactionSystem.AddSpecies(&carbon);
-	myReactionSystem.AddSpecies(&oxygen);
-	myReactionSystem.AddSpecies(&calcium_carbonate);
-
 	std::vector<double> initial_state;
 	initial_state.push_back(2.0);
 	initial_state.push_back(3.0);
@@ -91,23 +86,15 @@ TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){
-	myReactionSystem.AddSpecies(&calcium);
-	myReactionSystem.AddSpecies(&carbon);
+	emptyReactionSystem.AddSpecies(&calcium);
+	emptyReactionSystem.AddSpecies(&carbon);
 	std::vector<Species *> expectation;
 	expectation.push_back(&calcium);
 	expectation.push_back(&carbon);
-	ASSERT_EQ(expectation,myReactionSystem.GetSpecies());
+	ASSERT_EQ(expectation,emptyReactionSystem.GetSpecies());
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChange){
-	myReactionSystem.AddReaction(forward);
-    myReactionSystem.AddReaction(reverse);
-    
-    myReactionSystem.AddSpecies(&calcium);
-	myReactionSystem.AddSpecies(&carbon);
-	myReactionSystem.AddSpecies(&oxygen);
-	myReactionSystem.AddSpecies(&calcium_carbonate);
-	
 	std::vector<double> rates_of_change;
 	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //calcium
 	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //carbon
@@ -117,14 +104,6 @@ TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChange){
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChangeInFormatExpectedByODEINT){
-	myReactionSystem.AddReaction(forward);
-    myReactionSystem.AddReaction(reverse);
-
-    myReactionSystem.AddSpecies(&calcium);
-	myReactionSystem.AddSpecies(&carbon);
-	myReactionSystem.AddSpecies(&oxygen);
-	myReactionSystem.AddSpecies(&calcium_carbonate);
-
 	std::vector<double> expected_rates_of_change;
 	expected_rates_of_change.push_back(-9.0*9.0*11.0*13.0+11.0*17.0); //calcium
 	expected_rates_of_change.push_back(-9.0*9.0*11.0*13.0+11.0*17.0); //carbon
@@ -142,6 +121,7 @@ TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChangeInFormatExpect
 
 	ASSERT_EQ(expected_rates_of_change,actual_rates_of_change);
 }
+
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
