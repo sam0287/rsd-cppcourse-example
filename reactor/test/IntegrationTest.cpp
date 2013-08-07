@@ -9,21 +9,18 @@ protected:
 	ReactionSystem simple_decay_system;
 	Reaction decay;
 
-	Species original;
-	Species decay_product;
+	Species &original;
+	Species &decay_product;
 
 	SimpleDecaySystemTest():
 		decay(2.0),
-		original("Original"), 
-		decay_product("Product"), 
-		simple_decay_system()
+		simple_decay_system(),
+		original(simple_decay_system.NewSpecies("Original")), 
+		decay_product(simple_decay_system.NewSpecies("Product"))
 	{
 		decay.AddReactant(original);
 		decay.AddProduct(decay_product);
 
-		simple_decay_system.AddSpecies(original);
-		simple_decay_system.AddSpecies(decay_product);
-		
 		original.SetConcentration(100.0);
 		decay_product.SetConcentration(0.0);
 

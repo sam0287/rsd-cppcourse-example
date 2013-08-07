@@ -10,9 +10,9 @@ void ReactionSystem::AddReaction(const Reaction& reaction)
 	reactions.push_back(&reaction);
 }
 
-void ReactionSystem::AddSpecies(Species * new_species)
-{
-	species.push_back(new_species);
+Species & ReactionSystem::NewSpecies(const std::string &name){
+	species.push_back(new Species(name));
+	return *species.back();
 }
 
 const std::vector< double> ReactionSystem::GetConcentrations() const {

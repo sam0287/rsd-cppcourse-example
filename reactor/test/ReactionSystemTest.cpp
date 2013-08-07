@@ -7,18 +7,19 @@ protected:
 	ReactionSystem emptyReactionSystem;
 	Reaction forward;
 	Reaction reverse;
-	Species calcium;
-	Species carbon;
-	Species oxygen;
-	Species calcium_carbonate;
+	Species &calcium;
+	Species &carbon;
+	Species &oxygen;
+	Species &calcium_carbonate;
 
 	ReactionSystemTest():
+		myReactionSystem(),
 		forward(9.0),
 		reverse(11.0), 
-		calcium("Ca"), 
-		carbon("C"), 
-		oxygen("O"), 
-		calcium_carbonate("CaCO3")
+		calcium(myReactionSystem.NewSpecies("Ca")),
+		oxygen(myReactionSystem.NewSpecies("O")),
+		carbon(myReactionSystem.NewSpecies("C")),
+		calcium_carbonate(myReactionSystem.NewSpecies("CaCO3"))
 	{
 		forward.AddReactant(calcium);
 		forward.AddReactant(carbon);
@@ -32,11 +33,6 @@ protected:
 
 		myReactionSystem.AddReaction(forward);
     	myReactionSystem.AddReaction(reverse);
-
-	    myReactionSystem.AddSpecies(&calcium);
-		myReactionSystem.AddSpecies(&carbon);
-		myReactionSystem.AddSpecies(&oxygen);
-		myReactionSystem.AddSpecies(&calcium_carbonate);
 
 		calcium.SetConcentration(2.0);
 		carbon.SetConcentration(3.0);
@@ -68,6 +64,8 @@ TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
 	ASSERT_EQ(expectation,myReactionSystem.GetConcentrations());
 }
 
+
+
 TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
 	std::vector<double> initial_state;
 	initial_state.push_back(2.0);
@@ -86,12 +84,18 @@ TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){
-	emptyReactionSystem.AddSpecies(&calcium);
-	emptyReactionSystem.AddSpecies(&carbon);
-	std::vector<Species *> expectation;
-	expectation.push_back(&calcium);
-	expectation.push_back(&carbon);
-	ASSERT_EQ(expectation,emptyReactionSystem.GetSpecies());
+	Species & newCalcium = emptyReactionSystem.NewSpecies("Ca");
+	Species & newCarbon = emptyReactionSystem.NewSpecies("C");
+	ASSERT_EQ(&newCalcium,emptyReactionSystem.GetSpecies()[0]);
+	ASSERT_EQ(&newCarbon,emptyReactionSystem.GetSpecies()[1]);
+	ASSERT_EQ(2,emptyReactionSystem.GetSpecies().size());
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemSpeciesCanBeModifiedByReference){
+	Species & newCalcium = emptyReactionSystem.NewSpecies("Ca");
+	ASSERT_EQ(0,emptyReactionSystem.GetSpecies()[0]->GetConcentration());
+	newCalcium.SetConcentration(2.0);
+	ASSERT_EQ(2.0,emptyReactionSystem.GetSpecies()[0]->GetConcentration());
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChange){

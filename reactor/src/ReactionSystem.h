@@ -22,13 +22,10 @@ public:
   const std::vector<double> GetConcentrations() const ; // return array of species concentrations
   void SetConcentrations(const std::vector<double> & );
 
-
-
-  void AddSpecies(Species * species);
-  void AddSpecies(Species & species){AddSpecies(&species);}
-  std::vector<Species *> & GetSpecies() { return species;}
+  const std::vector<Species *> & GetSpecies() const { return species;}
 
   void operator()(const std::vector<double> & concentrations, std::vector<double> & rates, double time);
+  Species & NewSpecies(const std::string &name);
 
 private:
  
