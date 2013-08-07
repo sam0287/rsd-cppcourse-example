@@ -4,12 +4,14 @@
 class ReactionTest: public ::testing::Test {
 protected:
 	Reaction myReaction;
+	Reaction emptyReaction;
 	Species calcium;
 	Species carbon;
 	Species oxygen;
 	Species calcium_carbonate;
 	ReactionTest():
 		myReaction(5.0), 
+		emptyReaction(5.0),
 		calcium("Ca"), 
 		carbon("C"), 
 		oxygen("O"), 
@@ -19,6 +21,10 @@ protected:
 		carbon.SetConcentration(3.0);
 		oxygen.SetConcentration(5.0);
 		calcium_carbonate.SetConcentration(7.0);
+		myReaction.AddReactant(calcium);
+		myReaction.AddReactant(carbon);
+		myReaction.AddReactant(oxygen);
+		myReaction.AddProduct(calcium_carbonate);
 	};
 };
 
@@ -28,43 +34,33 @@ TEST_F(ReactionTest, ReactionHasRate) { // First argument is test group, second 
 }
 
 TEST_F(ReactionTest, ReactionCanHaveReactant) {
-	myReaction.AddReactant(calcium);
-	EXPECT_EQ(myReaction.GetReactants()[0]->GetName(),"Ca");
-	EXPECT_EQ(myReaction.GetReactants()[0], &calcium);
+	emptyReaction.AddReactant(calcium);
+	EXPECT_EQ(emptyReaction.GetReactants()[0]->GetName(),"Ca");
+	EXPECT_EQ(emptyReaction.GetReactants()[0], &calcium);
 }
 
-TEST_F(ReactionTest, ReactionCanHaveReactants) {
-	myReaction.AddReactant(calcium);
-	myReaction.AddReactant(carbon);
-	myReaction.AddReactant(oxygen);
-	EXPECT_EQ(myReaction.GetReactants()[0]->GetName(),"Ca");
-	EXPECT_EQ(myReaction.GetReactants()[0], &calcium);
-	EXPECT_EQ(myReaction.GetReactants()[1], &carbon);
-	EXPECT_EQ(myReaction.GetReactants()[2], &oxygen);
-	EXPECT_EQ(myReaction.GetReactants().size(),3);
+TEST_F(ReactionTest, ReactionCanHaveMultipleReactants) {
+	emptyReaction.AddReactant(calcium);
+	emptyReaction.AddReactant(carbon);
+	emptyReaction.AddReactant(oxygen);
+	EXPECT_EQ(emptyReaction.GetReactants()[0]->GetName(),"Ca");
+	EXPECT_EQ(emptyReaction.GetReactants()[0], &calcium);
+	EXPECT_EQ(emptyReaction.GetReactants()[1], &carbon);
+	EXPECT_EQ(emptyReaction.GetReactants()[2], &oxygen);
+	EXPECT_EQ(emptyReaction.GetReactants().size(),3);
 }
 
 TEST_F(ReactionTest, ReactionCanHaveProduct) {
-	myReaction.AddProduct(calcium_carbonate);
-	EXPECT_EQ(myReaction.GetProducts()[0]->GetName(), "CaCO3");
-	EXPECT_EQ(myReaction.GetProducts()[0], &calcium_carbonate);
+	emptyReaction.AddProduct(calcium_carbonate);
+	EXPECT_EQ(emptyReaction.GetProducts()[0]->GetName(), "CaCO3");
+	EXPECT_EQ(emptyReaction.GetProducts()[0], &calcium_carbonate);
 }
 
 TEST_F(ReactionTest, ReactionCanCalculateFlux) {
-	myReaction.AddReactant(calcium);
-	myReaction.AddReactant(carbon);
-	myReaction.AddReactant(oxygen);
-	myReaction.AddProduct(calcium_carbonate);
-
 	EXPECT_EQ(5.0*2.0*3.0*5.0, myReaction.GetFlux());
 }
 
 TEST_F(ReactionTest, ReactionCanContributeToRatesOfChange) {
-	myReaction.AddReactant(calcium);
-	myReaction.AddReactant(carbon);
-	myReaction.AddReactant(oxygen);
-	myReaction.AddProduct(calcium_carbonate);
-
 	myReaction.ContributeToRatesOfChange();
 
 	EXPECT_EQ(-1.0*5.0*2.0*3.0*5.0, calcium.GetRateOfChange());
@@ -74,11 +70,6 @@ TEST_F(ReactionTest, ReactionCanContributeToRatesOfChange) {
 }
 
 TEST_F(ReactionTest, ReactionCanOutputToAStream) {
-	myReaction.AddReactant(calcium);
-	myReaction.AddReactant(carbon);
-	myReaction.AddReactant(oxygen);
-	myReaction.AddProduct(calcium_carbonate);
-
 	std::ostringstream output_buffer;
 	output_buffer << myReaction;
 
