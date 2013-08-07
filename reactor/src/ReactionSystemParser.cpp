@@ -18,9 +18,14 @@ ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
   		std::getline(source,line);
  		std::vector<std::string> reactant_names;
  		std::vector<std::string> product_names;
- 		double rate;
+ 		double rate(0.0);
  		ParseLine(line, reactant_names, product_names, rate);
+ 		if (rate!=0.0)
+ 		{
+	 		result->NewReaction(rate);
+ 		}
   	//	 create a new reaction with the rate
+
   	//   for each named species
   	//   	  determine if it is new
   	//  	  if it is new, create a species in the reaction system
