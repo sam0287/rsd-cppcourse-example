@@ -17,6 +17,36 @@ TEST_F(ReactionSystemParserTest, ParserCanStart) {
 	delete system;
 }
 
+TEST_F(ReactionSystemParserTest, ParserCanCreateSpecies) {
+	std::istringstream buffer(
+		"A + B > 2.0 > C + D\n"
+		"C > 3.0 > E + F\n"
+		"A > 5.0 > C\n"
+		);
+	ReactionSystem * system = parser.FromStream(buffer);
+	ASSERT_EQ(6,system->GetSpecies().size());
+	ASSERT_EQ("A",system->GetSpecies()[0]->GetName());
+	ASSERT_EQ("B",system->GetSpecies()[1]->GetName());
+	ASSERT_EQ("C",system->GetSpecies()[2]->GetName());
+	ASSERT_EQ("D",system->GetSpecies()[3]->GetName());
+	ASSERT_EQ("E",system->GetSpecies()[4]->GetName());
+	ASSERT_EQ("F",system->GetSpecies()[5]->GetName());
+	delete system;
+}
+
+TEST_F(ReactionSystemParserTest, ParserCanCreateReactions) {
+	std::istringstream buffer(
+		"A + B > 2.0 > C + D\n"
+		"C > 3.0 > E + F\n"
+		"A > 5.0 > C\n"
+		);
+	ReactionSystem * system = parser.FromStream(buffer);
+	ASSERT_EQ(3,system->GetReactions().size());
+	ASSERT_EQ(2.0,system->GetReactions()[0]->GetRate());
+	ASSERT_EQ(3.0,system->GetReactions()[1]->GetRate());
+	ASSERT_EQ(5.0,system->GetReactions()[2]->GetRate());
+	delete system;
+}
 
 TEST_F(ReactionSystemParserTest, ParseLine) {
 	std::string source("A + B > 2.0 > C + D");
