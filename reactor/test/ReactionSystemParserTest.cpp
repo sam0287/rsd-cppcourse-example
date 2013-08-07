@@ -17,6 +17,23 @@ TEST_F(ReactionSystemParserTest, ParserCanStart) {
 	delete system;
 }
 
+TEST_F(ReactionSystemParserTest, ParseLine) {
+	std::istringstream source("A + B ->(2.0) C + D");
+	std::vector<std::string> reactant_names;
+ 	std::vector<std::string> product_names;
+ 	double rate(0.0);
+ 	parser.ParseLine(source, reactant_names, product_names, rate);
+ 	std::vector<std::string> expected_reactant_names;
+ 	std::vector<std::string> expected_product_names;
+ 	expected_reactant_names.push_back("A");
+ 	expected_reactant_names.push_back("B");
+ 	expected_product_names.push_back("C");
+ 	expected_product_names.push_back("D");
+ 	EXPECT_EQ(expected_product_names,product_names);
+ 	EXPECT_EQ(expected_reactant_names,reactant_names);
+ 	EXPECT_EQ(2.0,rate);
+}
+
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
