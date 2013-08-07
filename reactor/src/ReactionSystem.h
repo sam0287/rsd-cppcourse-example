@@ -1,6 +1,5 @@
 #include <string> // use the string capabilities from the standard library
 #include <vector>
-#include <set>
 #include <exception>
 
 #include "Species.h"
