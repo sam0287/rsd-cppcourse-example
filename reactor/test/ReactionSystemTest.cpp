@@ -122,6 +122,12 @@ TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChangeInFormatExpect
 	ASSERT_EQ(expected_rates_of_change,actual_rates_of_change);
 }
 
+TEST_F(ReactionSystemTest, ReactionSystemCanOutputToAStream) {
+	std::ostringstream output_buffer;
+	output_buffer << myReactionSystem;
+
+	EXPECT_EQ("Ca + C + O ->(9) CaCO3\nCaCO3 ->(11) Ca + C + O\n", output_buffer.str());
+}
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);

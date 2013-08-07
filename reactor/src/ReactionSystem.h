@@ -15,7 +15,7 @@ class ReactionSystem // A "class" is a user defined type with built-in functions
 public:
   ReactionSystem(); // Declare constructor function.
   void AddReaction(const Reaction& reaction);
-  const std::vector<const Reaction *> & GetReactions() {return reactions;}
+  const std::vector<const Reaction *> & GetReactions() const {return reactions;}
   
   const std::vector<double> GetRatesOfChange() const; // Given the current species concentrations, return the rates of change
 
@@ -35,4 +35,7 @@ private:
   std::vector< const Reaction * > reactions;
   std::vector< Species * > species;
 };
+
+std::ostream & operator<<(std::ostream &s, const ReactionSystem& system);
+
 #endif //ONCE_REACTIONSYSTEM_H

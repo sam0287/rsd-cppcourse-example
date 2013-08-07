@@ -62,3 +62,11 @@ const std::vector<double> ReactionSystem::GetRatesOfChange() const {
  	SetConcentrations(concentrations);
  	rates=GetRatesOfChange();
  }
+
+ std::ostream & operator<<(std::ostream &stream, const ReactionSystem& system){
+ 	for (std::vector<const Reaction *>::const_iterator each_reaction=system.GetReactions().begin(); each_reaction!=system.GetReactions().end();each_reaction++)
+	{
+		stream << **each_reaction << std::endl;
+	}
+	return stream;
+ }
