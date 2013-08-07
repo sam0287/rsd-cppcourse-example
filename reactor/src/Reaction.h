@@ -1,5 +1,6 @@
 #include <string> // use the string capabilities from the standard library
 #include <vector>
+#include <iostream>
 
 #include "Species.h"
 
@@ -27,9 +28,12 @@ public:
 
   double GetFlux() const ; 
 private:
+
   RateConstant rate; // A member variable for the class to store the name of the system.
   std::vector< Species * > reactants;
   std::vector< Species * > products;
 };
+
+std::ostream & operator<<(std::ostream &s, const Reaction& reaction);
 
 #endif //ONCE_REACTION_H

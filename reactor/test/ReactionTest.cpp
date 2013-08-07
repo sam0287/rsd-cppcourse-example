@@ -73,6 +73,18 @@ TEST_F(ReactionTest, ReactionCanContributeToRatesOfChange) {
 	EXPECT_EQ(5.0*2.0*3.0*5.0, calcium_carbonate.GetRateOfChange());
 }
 
+TEST_F(ReactionTest, ReactionCanOutputToAStream) {
+	myReaction.AddReactant(calcium);
+	myReaction.AddReactant(carbon);
+	myReaction.AddReactant(oxygen);
+	myReaction.AddProduct(calcium_carbonate);
+
+	std::ostringstream output_buffer;
+	output_buffer << myReaction;
+
+	EXPECT_EQ("Ca + C + O -> CaCO3",output_buffer.str());
+}
+
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -41,3 +41,22 @@ double  Reaction::GetFlux() const {
 	}
 	return flux;
 }
+
+std::ostream & operator<<(std::ostream &stream, const Reaction& reaction){
+
+	std::vector<Species *>::const_iterator each_species;
+	for (each_species=reaction.GetReactants().begin(); each_species!=--reaction.GetReactants().end(); each_species++)
+	{
+		stream << (*each_species)->GetName() << " + ";
+	}
+	stream << (*each_species)->GetName() << " -> ";
+	// for each species in the products
+
+	for (each_species=reaction.GetProducts().begin(); each_species!=--reaction.GetProducts().end(); each_species++)
+	{
+		// add the flux to the rate
+		stream << (*each_species)->GetName() << " + ";
+	}
+	stream << (*each_species)->GetName() ;
+	return stream ;
+}
