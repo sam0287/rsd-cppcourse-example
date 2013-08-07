@@ -13,8 +13,8 @@
 class ReactionSystemParser
 {   
 public:
-  ReactionSystemParser();
-  ReactionSystem & FromStream(std::istream & source);
+  ReactionSystemParser(){};
+  ReactionSystem * FromStream(std::istream & source);
   
 private:
 
