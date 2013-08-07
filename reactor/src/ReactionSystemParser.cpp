@@ -8,8 +8,8 @@ ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
 
 	// The source stream is assumed to look like:
   	//
-  	// A + B + C -> rate D
-  	// D + E -> rate2 A
+  	// A + B + C > rate > D
+  	// D + E > rate2 > A
 
   	// we need to, for each line,
   	while (source.good())
@@ -20,26 +20,35 @@ ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
  		std::vector<std::string> product_names;
  		double rate(0.0);
  		ParseLine(line, reactant_names, product_names, rate);
+
  		if (rate!=0.0)
  		{
-	 		result->NewReaction(rate);
- 		}
-  	//	 create a new reaction with the rate
-
-  	//   for each named species
-  	//   	  determine if it is new
-  	//  	  if it is new, create a species in the reaction system
-  	//   	  if it is not new, obtain the species from the list of existing ones
-  	//   for each reactant
-  	//  	  add the species to the reactants
-  	//   for each product
-  	//  	  add the species to the products
-  	//   determine the rate
+	 		Reaction & reaction=result->NewReaction(rate);
+ 		
+		  	for (std::vector<std::string>::iterator reactant=reactant_names.begin(); reactant!=reactant_names.end(); reactant++)
+			{
+				reaction.AddReactant(NewOrFind(result,*reactant));
+			}
+			for (std::vector<std::string>::iterator product=product_names.begin(); product!=product_names.end(); product++)
+			{
+				reaction.AddProduct(NewOrFind(result,*product));
+			} 
+		}
  	}
   	return result;
 }
 
-void ReactionSystemParser::ParseLine(std::string & line, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate){
+Species * ReactionSystemParser::NewOrFind(ReactionSystem * result,const std::string &name)
+{
+	if (species_map.find(name) == species_map.end())
+	{
+		species_map[name]=&result->NewSpecies(name);
+	}
+	return species_map[name];
+}
+
+void ReactionSystemParser::ParseLine(std::string & line, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate)
+{
 	std::string piece("");
 	std::string separator("");
 	bool found_reactants=false;

@@ -48,6 +48,48 @@ TEST_F(ReactionSystemParserTest, ParserCanCreateReactions) {
 	delete system;
 }
 
+TEST_F(ReactionSystemParserTest, ParserReactionsHaveAppropriateSpecies) {
+	std::istringstream buffer(
+		"A + B > 2.0 > C + D\n"
+		"C > 3.0 > E + F\n"
+		"A > 5.0 > C\n"
+		);
+	ReactionSystem * system = parser.FromStream(buffer);
+	ASSERT_EQ(system->GetReactions()[0]->GetReactants()[0],system->GetSpecies()[0]);
+	ASSERT_EQ(system->GetReactions()[0]->GetReactants()[1],system->GetSpecies()[1]);
+	ASSERT_EQ(2,system->GetReactions()[0]->GetReactants().size());
+	ASSERT_EQ(system->GetReactions()[0]->GetProducts()[0],system->GetSpecies()[2]);
+	ASSERT_EQ(system->GetReactions()[0]->GetProducts()[1],system->GetSpecies()[3]);
+	ASSERT_EQ(2,system->GetReactions()[0]->GetProducts().size());
+
+	ASSERT_EQ(system->GetReactions()[1]->GetReactants()[0],system->GetSpecies()[2]);
+	ASSERT_EQ(1,system->GetReactions()[1]->GetReactants().size());
+	ASSERT_EQ(system->GetReactions()[1]->GetProducts()[0],system->GetSpecies()[4]);
+	ASSERT_EQ(system->GetReactions()[1]->GetProducts()[1],system->GetSpecies()[5]);
+	ASSERT_EQ(2,system->GetReactions()[0]->GetProducts().size());
+
+	ASSERT_EQ(system->GetReactions()[2]->GetReactants()[0],system->GetSpecies()[0]);
+	ASSERT_EQ(1,system->GetReactions()[2]->GetReactants().size());
+	ASSERT_EQ(system->GetReactions()[2]->GetProducts()[0],system->GetSpecies()[2]);
+	ASSERT_EQ(1,system->GetReactions()[2]->GetProducts().size());
+
+	delete system;
+}
+
+TEST_F(ReactionSystemParserTest, ParserCanFindExistingSpecies) {
+	ReactionSystem * system=new ReactionSystem();
+	Species * ca=parser.NewOrFind(system,"Ca");
+	Species * ca2=parser.NewOrFind(system,"Ca");
+	Species * c=parser.NewOrFind(system,"C");
+	ASSERT_EQ(ca,ca2);
+	ASSERT_NE(ca,c);
+	ASSERT_EQ(2,system->GetSpecies().size());
+	ASSERT_EQ(system->GetSpecies()[0],ca);
+	ASSERT_EQ(system->GetSpecies()[0],ca2);
+	ASSERT_EQ(system->GetSpecies()[1],c);
+	delete system;
+}
+
 TEST_F(ReactionSystemParserTest, ParseLine) {
 	std::string source("A + B > 2.0 > C + D");
 	std::vector<std::string> reactant_names;
