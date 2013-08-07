@@ -6,7 +6,7 @@ Reaction::Reaction(RateConstant rate):
     // do nothing
   }
 
-RateConstant Reaction::GetRate() 
+RateConstant Reaction::GetRate() const
 { 
 	// a function whose return type is a standard string, with no input arguments
 	// the ampersand and const will be explained later.
@@ -49,7 +49,7 @@ std::ostream & operator<<(std::ostream &stream, const Reaction& reaction){
 	{
 		stream << (*each_species)->GetName() << " + ";
 	}
-	stream << (*each_species)->GetName() << " -> ";
+	stream << (*each_species)->GetName() << " ->(" << reaction.GetRate() << ") ";
 	// for each species in the products
 
 	for (each_species=reaction.GetProducts().begin(); each_species!=--reaction.GetProducts().end(); each_species++)

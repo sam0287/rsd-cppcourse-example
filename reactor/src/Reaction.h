@@ -13,7 +13,7 @@ class Reaction // A "class" is a user defined type with built-in functions
 {   
 public:
   Reaction(RateConstant rate); // Declare constructor function.
-  RateConstant GetRate(); const
+  RateConstant GetRate() const;
 
   void AddReactant( Species *  species){reactants.push_back(species);}
   void AddProduct( Species  * species){products.push_back(species);}

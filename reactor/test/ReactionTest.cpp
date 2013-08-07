@@ -82,7 +82,7 @@ TEST_F(ReactionTest, ReactionCanOutputToAStream) {
 	std::ostringstream output_buffer;
 	output_buffer << myReaction;
 
-	EXPECT_EQ("Ca + C + O -> CaCO3",output_buffer.str());
+	EXPECT_EQ("Ca + C + O ->(5) CaCO3", output_buffer.str());
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
