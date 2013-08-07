@@ -5,8 +5,8 @@ class ReactionSystemTest: public ::testing::Test {
 protected:
 	ReactionSystem myReactionSystem;
 	ReactionSystem emptyReactionSystem;
-	Reaction forward;
-	Reaction reverse;
+	Reaction &forward;
+	Reaction &reverse;
 	Species &calcium;
 	Species &carbon;
 	Species &oxygen;
@@ -14,8 +14,8 @@ protected:
 
 	ReactionSystemTest():
 		myReactionSystem(),
-		forward(9.0),
-		reverse(11.0), 
+		forward(myReactionSystem.NewReaction(9.0)),
+		reverse(myReactionSystem.NewReaction(11.0)), 
 		calcium(myReactionSystem.NewSpecies("Ca")),
 		oxygen(myReactionSystem.NewSpecies("O")),
 		carbon(myReactionSystem.NewSpecies("C")),
@@ -31,9 +31,6 @@ protected:
 		reverse.AddProduct(oxygen);
 		reverse.AddReactant(calcium_carbonate);
 
-		myReactionSystem.AddReaction(forward);
-    	myReactionSystem.AddReaction(reverse);
-
 		calcium.SetConcentration(2.0);
 		carbon.SetConcentration(3.0);
 		oxygen.SetConcentration(5.0);
@@ -42,17 +39,25 @@ protected:
 };
 
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveReaction) { // First argument is test group, second is test name
-  emptyReactionSystem.AddReaction(forward);
+  Reaction & new_forward= emptyReactionSystem.NewReaction(9.0);
   ASSERT_EQ(1, emptyReactionSystem.GetReactions().size());
-  ASSERT_EQ(&forward, emptyReactionSystem.GetReactions()[0]);
+  ASSERT_EQ(&new_forward, emptyReactionSystem.GetReactions()[0]);
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { 
-  emptyReactionSystem.AddReaction(forward);
-  emptyReactionSystem.AddReaction(reverse);
+  Reaction & new_forward = emptyReactionSystem.NewReaction(9.0);
+  Reaction & new_back = emptyReactionSystem.NewReaction(11.0);
   ASSERT_EQ(2, emptyReactionSystem.GetReactions().size());
-  ASSERT_EQ(&forward, emptyReactionSystem.GetReactions()[0]);
-  ASSERT_EQ(&reverse, emptyReactionSystem.GetReactions()[1]);
+  ASSERT_EQ(&new_forward, emptyReactionSystem.GetReactions()[0]);
+  ASSERT_EQ(&new_back, emptyReactionSystem.GetReactions()[1]);
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemReactionCanBeModifiedByReference){
+  Reaction & new_forward = emptyReactionSystem.NewReaction(9.0);
+  Species & new_calcium = emptyReactionSystem.NewSpecies("Ca");
+  ASSERT_EQ(0, emptyReactionSystem.GetReactions()[0]->GetReactants().size());
+  new_forward.AddReactant(new_calcium);
+  ASSERT_EQ(&new_calcium, emptyReactionSystem.GetReactions()[0]->GetReactants()[0]);
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
@@ -63,8 +68,6 @@ TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
 	expectation.push_back(7.0);
 	ASSERT_EQ(expectation,myReactionSystem.GetConcentrations());
 }
-
-
 
 TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
 	std::vector<double> initial_state;

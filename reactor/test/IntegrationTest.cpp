@@ -18,13 +18,13 @@ public:
 class SimpleDecaySystemTest: public ::testing::Test {
 protected:
 	ReactionSystem simple_decay_system;
-	Reaction decay;
+	Reaction &decay;
 	Species &original;
 	Species &decay_product;
 
 	SimpleDecaySystemTest():
-		decay(2.0),
 		simple_decay_system(),
+		decay(simple_decay_system.NewReaction(2.0)),
 		original(simple_decay_system.NewSpecies("Original")), 
 		decay_product(simple_decay_system.NewSpecies("Product"))
 	{
@@ -33,8 +33,6 @@ protected:
 
 		original.SetConcentration(100.0);
 		decay_product.SetConcentration(0.0);
-
-		simple_decay_system.AddReaction(decay);
 	};
 };
 

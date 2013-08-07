@@ -5,9 +5,10 @@ ReactionSystem::ReactionSystem()
   // do nothing
 }
 
-void ReactionSystem::AddReaction(const Reaction& reaction) 
+Reaction & ReactionSystem::NewReaction(double rate) 
 { 
-	reactions.push_back(&reaction);
+	reactions.push_back(new Reaction(rate));
+	return *reactions.back();
 }
 
 Species & ReactionSystem::NewSpecies(const std::string &name){
@@ -19,6 +20,10 @@ ReactionSystem::~ReactionSystem(){
 	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
 	{
 		delete *each_species;
+	}
+	for (std::vector< Reaction *>::iterator each_reaction=reactions.begin();each_reaction!=reactions.end();each_reaction++)
+	{
+		delete *each_reaction;
 	}
 }
 
@@ -53,7 +58,7 @@ const std::vector<double> ReactionSystem::GetRatesOfChange() const {
 		(*each_species)->ReSetRateOfChange();
 	}
 
-	for (std::vector<const Reaction *>::const_iterator each_reaction=reactions.begin();each_reaction!=reactions.end();each_reaction++)
+	for (std::vector<Reaction *>::const_iterator each_reaction=reactions.begin();each_reaction!=reactions.end();each_reaction++)
 	{
 		(*each_reaction)->ContributeToRatesOfChange();
 	}
@@ -71,7 +76,7 @@ const std::vector<double> ReactionSystem::GetRatesOfChange() const {
  }
 
  std::ostream & operator<<(std::ostream &stream, const ReactionSystem& system){
- 	for (std::vector<const Reaction *>::const_iterator each_reaction=system.GetReactions().begin(); each_reaction!=system.GetReactions().end();each_reaction++)
+ 	for (std::vector<Reaction *>::const_iterator each_reaction=system.GetReactions().begin(); each_reaction!=system.GetReactions().end();each_reaction++)
 	{
 		stream << **each_reaction << std::endl;
 	}
