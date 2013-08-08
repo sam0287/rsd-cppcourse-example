@@ -89,9 +89,10 @@ TEST_F(ReactionSystemTest, ReactionSystemCanSetConcentrations) {
 TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){
 	Species & newCalcium = emptyReactionSystem.NewSpecies("Ca");
 	Species & newCarbon = emptyReactionSystem.NewSpecies("C");
+	ASSERT_EQ(2,emptyReactionSystem.GetSpecies().size());
 	EXPECT_EQ(&newCalcium,emptyReactionSystem.GetSpecies()[0]);
 	EXPECT_EQ(&newCarbon,emptyReactionSystem.GetSpecies()[1]);
-	EXPECT_EQ(2,emptyReactionSystem.GetSpecies().size());
+
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemSpeciesCanBeModifiedByReference){

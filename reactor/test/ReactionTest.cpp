@@ -43,11 +43,12 @@ TEST_F(ReactionTest, ReactionCanHaveMultipleReactants) {
 	emptyReaction.AddReactant(calcium);
 	emptyReaction.AddReactant(carbon);
 	emptyReaction.AddReactant(oxygen);
+	ASSERT_EQ(emptyReaction.GetReactants().size(),3);
 	EXPECT_EQ(emptyReaction.GetReactants()[0]->GetName(),"Ca");
 	EXPECT_EQ(emptyReaction.GetReactants()[0], &calcium);
 	EXPECT_EQ(emptyReaction.GetReactants()[1], &carbon);
 	EXPECT_EQ(emptyReaction.GetReactants()[2], &oxygen);
-	EXPECT_EQ(emptyReaction.GetReactants().size(),3);
+
 }
 
 TEST_F(ReactionTest, ReactionCanHaveProduct) {
