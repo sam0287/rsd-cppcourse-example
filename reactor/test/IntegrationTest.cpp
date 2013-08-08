@@ -54,9 +54,9 @@ TEST_F(SimpleDecaySystemTest, ODEINTCanIntegrate) { // First argument is test gr
 	// and of the product
 	// initial* (1-exp(-time*rate))
 
-	ASSERT_NE(step_count,0);
-	ASSERT_NEAR(100*std::exp(-2.0*1.5),concentrations[0],0.001);
-	ASSERT_NEAR(100-100*std::exp(-2.0*1.5),concentrations[1],0.001);
+	EXPECT_NE(step_count,0);
+	EXPECT_NEAR(100*std::exp(-2.0*1.5),concentrations[0],0.001);
+	EXPECT_NEAR(100-100*std::exp(-2.0*1.5),concentrations[1],0.001);
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests

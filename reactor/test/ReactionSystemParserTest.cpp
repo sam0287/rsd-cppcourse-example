@@ -13,7 +13,7 @@ protected:
 TEST_F(ReactionSystemParserTest, ParserCanStart) {
 	std::istringstream buffer("");
 	ReactionSystem * system = parser.FromStream(buffer);
-	ASSERT_EQ(0,system->GetSpecies().size());
+	EXPECT_EQ(0,system->GetSpecies().size());
 	delete system;
 }
 
@@ -24,13 +24,13 @@ TEST_F(ReactionSystemParserTest, ParserCanCreateSpecies) {
 		"A > 5.0 > C\n"
 		);
 	ReactionSystem * system = parser.FromStream(buffer);
-	ASSERT_EQ(6,system->GetSpecies().size());
-	ASSERT_EQ("A",system->GetSpecies()[0]->GetName());
-	ASSERT_EQ("B",system->GetSpecies()[1]->GetName());
-	ASSERT_EQ("C",system->GetSpecies()[2]->GetName());
-	ASSERT_EQ("D",system->GetSpecies()[3]->GetName());
-	ASSERT_EQ("E",system->GetSpecies()[4]->GetName());
-	ASSERT_EQ("F",system->GetSpecies()[5]->GetName());
+	EXPECT_EQ(6,system->GetSpecies().size());
+	EXPECT_EQ("A",system->GetSpecies()[0]->GetName());
+	EXPECT_EQ("B",system->GetSpecies()[1]->GetName());
+	EXPECT_EQ("C",system->GetSpecies()[2]->GetName());
+	EXPECT_EQ("D",system->GetSpecies()[3]->GetName());
+	EXPECT_EQ("E",system->GetSpecies()[4]->GetName());
+	EXPECT_EQ("F",system->GetSpecies()[5]->GetName());
 	delete system;
 }
 
@@ -41,10 +41,10 @@ TEST_F(ReactionSystemParserTest, ParserCanCreateReactions) {
 		"A > 5.0 > C\n"
 		);
 	ReactionSystem * system = parser.FromStream(buffer);
-	ASSERT_EQ(3,system->GetReactions().size());
-	ASSERT_EQ(2.0,system->GetReactions()[0]->GetRate());
-	ASSERT_EQ(3.0,system->GetReactions()[1]->GetRate());
-	ASSERT_EQ(5.0,system->GetReactions()[2]->GetRate());
+	EXPECT_EQ(3,system->GetReactions().size());
+	EXPECT_EQ(2.0,system->GetReactions()[0]->GetRate());
+	EXPECT_EQ(3.0,system->GetReactions()[1]->GetRate());
+	EXPECT_EQ(5.0,system->GetReactions()[2]->GetRate());
 	delete system;
 }
 
@@ -55,23 +55,23 @@ TEST_F(ReactionSystemParserTest, ParserReactionsHaveAppropriateSpecies) {
 		"A > 5.0 > C\n"
 		);
 	ReactionSystem * system = parser.FromStream(buffer);
-	ASSERT_EQ(system->GetReactions()[0]->GetReactants()[0],system->GetSpecies()[0]);
-	ASSERT_EQ(system->GetReactions()[0]->GetReactants()[1],system->GetSpecies()[1]);
-	ASSERT_EQ(2,system->GetReactions()[0]->GetReactants().size());
-	ASSERT_EQ(system->GetReactions()[0]->GetProducts()[0],system->GetSpecies()[2]);
-	ASSERT_EQ(system->GetReactions()[0]->GetProducts()[1],system->GetSpecies()[3]);
-	ASSERT_EQ(2,system->GetReactions()[0]->GetProducts().size());
+	EXPECT_EQ(system->GetReactions()[0]->GetReactants()[0],system->GetSpecies()[0]);
+	EXPECT_EQ(system->GetReactions()[0]->GetReactants()[1],system->GetSpecies()[1]);
+	EXPECT_EQ(2,system->GetReactions()[0]->GetReactants().size());
+	EXPECT_EQ(system->GetReactions()[0]->GetProducts()[0],system->GetSpecies()[2]);
+	EXPECT_EQ(system->GetReactions()[0]->GetProducts()[1],system->GetSpecies()[3]);
+	EXPECT_EQ(2,system->GetReactions()[0]->GetProducts().size());
 
-	ASSERT_EQ(system->GetReactions()[1]->GetReactants()[0],system->GetSpecies()[2]);
-	ASSERT_EQ(1,system->GetReactions()[1]->GetReactants().size());
-	ASSERT_EQ(system->GetReactions()[1]->GetProducts()[0],system->GetSpecies()[4]);
-	ASSERT_EQ(system->GetReactions()[1]->GetProducts()[1],system->GetSpecies()[5]);
-	ASSERT_EQ(2,system->GetReactions()[0]->GetProducts().size());
+	EXPECT_EQ(system->GetReactions()[1]->GetReactants()[0],system->GetSpecies()[2]);
+	EXPECT_EQ(1,system->GetReactions()[1]->GetReactants().size());
+	EXPECT_EQ(system->GetReactions()[1]->GetProducts()[0],system->GetSpecies()[4]);
+	EXPECT_EQ(system->GetReactions()[1]->GetProducts()[1],system->GetSpecies()[5]);
+	EXPECT_EQ(2,system->GetReactions()[0]->GetProducts().size());
 
-	ASSERT_EQ(system->GetReactions()[2]->GetReactants()[0],system->GetSpecies()[0]);
-	ASSERT_EQ(1,system->GetReactions()[2]->GetReactants().size());
-	ASSERT_EQ(system->GetReactions()[2]->GetProducts()[0],system->GetSpecies()[2]);
-	ASSERT_EQ(1,system->GetReactions()[2]->GetProducts().size());
+	EXPECT_EQ(system->GetReactions()[2]->GetReactants()[0],system->GetSpecies()[0]);
+	EXPECT_EQ(1,system->GetReactions()[2]->GetReactants().size());
+	EXPECT_EQ(system->GetReactions()[2]->GetProducts()[0],system->GetSpecies()[2]);
+	EXPECT_EQ(1,system->GetReactions()[2]->GetProducts().size());
 
 	delete system;
 }
@@ -81,12 +81,12 @@ TEST_F(ReactionSystemParserTest, ParserCanFindExistingSpecies) {
 	Species * ca=parser.NewOrFind(system,"Ca");
 	Species * ca2=parser.NewOrFind(system,"Ca");
 	Species * c=parser.NewOrFind(system,"C");
-	ASSERT_EQ(ca,ca2);
-	ASSERT_NE(ca,c);
-	ASSERT_EQ(2,system->GetSpecies().size());
-	ASSERT_EQ(system->GetSpecies()[0],ca);
-	ASSERT_EQ(system->GetSpecies()[0],ca2);
-	ASSERT_EQ(system->GetSpecies()[1],c);
+	EXPECT_EQ(ca,ca2);
+	EXPECT_NE(ca,c);
+	EXPECT_EQ(2,system->GetSpecies().size());
+	EXPECT_EQ(system->GetSpecies()[0],ca);
+	EXPECT_EQ(system->GetSpecies()[0],ca2);
+	EXPECT_EQ(system->GetSpecies()[1],c);
 	delete system;
 }
 
