@@ -3,21 +3,14 @@
 #include <iostream> //Include standard library file which provides input and output capabilities ("print statements") 
 #include <boost/numeric/odeint.hpp> // Include ODE solver library, just to check our build system has picked it up ok.
 
-#include "Species.h" // Include our own library file for describing a reaction system
+#include "CommandLineParser.h" // Include our own library file for describing a reaction system
+#include "Solver.h"
+#include <fstream>
 
-int main(int argument_count, char ** command_line_arguments) // Define the main function, which is the entry point to the program.
-{ // C++ uses braces to start and end sections of code.
-  
-  std::cout << "The 'boiler plate' main program is running." << std::endl; // Print out a friendly message.
-  // The << symbol is an output operator, while std::cout tells the message to go to "standard output", i.e. your terminal.
-  
-  Species calcium("Ca"); // You can declare new variables like this.
-  // "Species" is a user defined type, or "class".
-  
-  std::cout << "A species was created called \"" << calcium.GetName() << "\"" << std::endl; // You use a dot to access a method of a class.
-  // To get a quote symbol into a string, escape it with a slash
-  // << can be used to chain several outputs together, in this case, a literal string,
-  // and the output from calling GetName()
-
-  return 0; // Exit successfully.
+int main(int argument_count, const char ** command_line_arguments) // Define the main function, which is the entry point to the program.
+{ 
+	CommandLineParser parser(argument_count,command_line_arguments);
+	std::fstream system_file(parser.GetReactionSystemFileName().c_str(),std::ios_base::in);
+	Solver solver(system_file,std::cout);
+	solver.Solve(0.0,parser.GetFinalTime(),parser.GetFinalTime()/100.0,parser.GetInitialConditions());
 }
