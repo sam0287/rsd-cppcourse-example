@@ -1,6 +1,8 @@
 #include "Species.h" // Include the code that we are testing
 #include <gtest/gtest.h> // Include the google test framework
 
+using namespace reactor;
+
 // Test that the system has a name as expected.
 TEST(SpeciesTest, SpeciesHasAName) { // First argument is test group, second is test name
   Species mySpecies("SomeName"); // Create a species with a specified name
