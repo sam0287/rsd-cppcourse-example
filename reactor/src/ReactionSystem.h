@@ -5,7 +5,6 @@
 #include "Species.h"
 #include "Reaction.h"
 
-
 #ifndef ONCE_REACTIONSYSTEM_H
 #define ONCE_REACTIONSYSTEM_H
 
