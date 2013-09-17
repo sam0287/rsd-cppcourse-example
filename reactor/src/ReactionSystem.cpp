@@ -1,22 +1,22 @@
 #include "ReactionSystem.h" // Include the declaration of the ReactionSystem..
 
-ReactionSystem::ReactionSystem()
+reactor::ReactionSystem::ReactionSystem()
 {
   // do nothing
 }
 
-Reaction & ReactionSystem::NewReaction(double rate) 
+reactor::Reaction & reactor::ReactionSystem::NewReaction(double rate) 
 { 
 	reactions.push_back(new Reaction(rate));
 	return *reactions.back();
 }
 
-Species & ReactionSystem::NewSpecies(const std::string &name){
+reactor::Species & reactor::ReactionSystem::NewSpecies(const std::string &name){
 	species.push_back(new Species(name));
 	return *species.back();
 }
 
-ReactionSystem::~ReactionSystem(){
+reactor::ReactionSystem::~ReactionSystem(){
 	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
 	{
 		delete *each_species;
@@ -27,7 +27,7 @@ ReactionSystem::~ReactionSystem(){
 	}
 }
 
-const std::vector< double> ReactionSystem::GetConcentrations() const {
+const std::vector< double> reactor::ReactionSystem::GetConcentrations() const {
 	std::vector<double> result;
 	// we are not pre-allocating, this will be slow.
 	// Idea is to try to make a maximally-readable solution without thinking about speed first.
@@ -40,7 +40,7 @@ const std::vector< double> ReactionSystem::GetConcentrations() const {
 	return result;
 }
 
-void ReactionSystem::SetConcentrations(const std::vector<double> & concentrations) {
+void reactor::ReactionSystem::SetConcentrations(const std::vector<double> & concentrations) {
 
 	std::vector<double>::const_iterator each_concentration=concentrations.begin();
 
@@ -51,7 +51,7 @@ void ReactionSystem::SetConcentrations(const std::vector<double> & concentration
 	}
 }
 
-const std::vector<double> ReactionSystem::GetRatesOfChange() const {
+const std::vector<double> reactor::ReactionSystem::GetRatesOfChange() const {
 	std::vector<double> rates_of_change;
 	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
 	{
@@ -70,13 +70,13 @@ const std::vector<double> ReactionSystem::GetRatesOfChange() const {
 	return rates_of_change;
 }
 
- void ReactionSystem::GetRatesGivenConcentrations(const std::vector<double> & concentrations, std::vector<double> & rates){
+ void reactor::ReactionSystem::GetRatesGivenConcentrations(const std::vector<double> & concentrations, std::vector<double> & rates){
  	SetConcentrations(concentrations);
  	rates=GetRatesOfChange();
  }
 
- std::ostream & operator<<(std::ostream &stream, const ReactionSystem& system){
- 	for (std::vector<Reaction *>::const_iterator each_reaction=system.GetReactions().begin(); each_reaction!=system.GetReactions().end();each_reaction++)
+ std::ostream & operator<<(std::ostream &stream, const reactor::ReactionSystem& system){
+ 	for (std::vector<reactor::Reaction *>::const_iterator each_reaction=system.GetReactions().begin(); each_reaction!=system.GetReactions().end();each_reaction++)
 	{
 		stream << **each_reaction << std::endl;
 	}

@@ -1,6 +1,8 @@
 #include "Solver.h" // Include the code that we are testing
 #include <gtest/gtest.h> // Include the google test framework
 
+using namespace reactor;
+
 class SolverTest: public ::testing::Test {
 public:
 	std::istringstream system;

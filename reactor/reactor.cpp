@@ -9,8 +9,8 @@
 
 int main(int argument_count, const char ** command_line_arguments) // Define the main function, which is the entry point to the program.
 { 
-	CommandLineParser parser(argument_count,command_line_arguments);
+	reactor::CommandLineParser parser(argument_count,command_line_arguments);
 	std::fstream system_file(parser.GetReactionSystemFileName().c_str(),std::ios_base::in);
-	Solver solver(system_file,std::cout);
+	reactor::Solver solver(system_file,std::cout);
 	solver.Solve(0.0,parser.GetFinalTime(),parser.GetFinalTime()/100.0,parser.GetInitialConditions());
 }

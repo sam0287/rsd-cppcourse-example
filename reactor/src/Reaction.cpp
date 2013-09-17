@@ -1,19 +1,19 @@
 #include "Reaction.h" // Include the declaration of the Reaction..
 
-Reaction::Reaction(RateConstant rate):
+reactor::Reaction::Reaction(RateConstant rate):
     rate(rate), reactants(), products() // Initialise the name member variable from the input argument.
   {
     // do nothing
   }
 
-RateConstant Reaction::GetRate() const
+reactor::RateConstant reactor::Reaction::GetRate() const
 { 
 	// a function whose return type is a standard string, with no input arguments
 	// the ampersand and const will be explained later.
 	return rate; // give the name variable result back
 }
 
-void Reaction::ContributeToRatesOfChange() const 
+void reactor::Reaction::ContributeToRatesOfChange() const 
 {
 	double flux=GetFlux();
 	// for each species in the reactants
@@ -32,7 +32,7 @@ void Reaction::ContributeToRatesOfChange() const
 
 }
 
-double  Reaction::GetFlux() const {
+double  reactor::Reaction::GetFlux() const {
 	// the product of the concentrations of the reactants, times the rate constant
 	double flux=rate;
 	for (std::vector<Species *>::const_iterator each_reactant=GetReactants().begin(); each_reactant!=GetReactants().end(); each_reactant++)
@@ -42,9 +42,9 @@ double  Reaction::GetFlux() const {
 	return flux;
 }
 
-std::ostream & operator<<(std::ostream &stream, const Reaction& reaction){
+std::ostream & operator<<(std::ostream &stream, const reactor::Reaction& reaction){
 
-	std::vector<Species *>::const_iterator each_species;
+	std::vector<reactor::Species *>::const_iterator each_species;
 	for (each_species=reaction.GetReactants().begin(); each_species!=--reaction.GetReactants().end(); each_species++)
 	{
 		stream << (*each_species)->GetName() << " + ";

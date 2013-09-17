@@ -4,6 +4,8 @@
 
 #include <boost/numeric/odeint.hpp>
 
+using namespace reactor;
+
 class WrapReactionSystemForODEINT
 {
 public:

@@ -7,33 +7,36 @@
 #ifndef ONCE_REACTION_H
 #define ONCE_REACTION_H
 
-typedef double RateConstant;
 
-class Reaction // A "class" is a user defined type with built-in functions
-{   
-public:
-  Reaction(RateConstant rate); // Declare constructor function.
-  RateConstant GetRate() const;
+namespace reactor{
 
-  void AddReactant( Species *  species){reactants.push_back(species);}
-  void AddProduct( Species  * species){products.push_back(species);}
+  typedef double RateConstant;
 
-  void AddReactant( Species &  species){reactants.push_back(&species);}
-  void AddProduct( Species  &  species){products.push_back(&species);}
+  class Reaction // A "class" is a user defined type with built-in functions
+  {   
+  public:
+    Reaction(RateConstant rate); // Declare constructor function.
+    RateConstant GetRate() const;
 
-  const std::vector<  Species * > & GetReactants() const { return reactants;}
-  const std::vector<  Species * > & GetProducts() const { return products;}
+    void AddReactant( Species *  species){reactants.push_back(species);}
+    void AddProduct( Species  * species){products.push_back(species);}
 
-  void ContributeToRatesOfChange() const ;
+    void AddReactant( Species &  species){reactants.push_back(&species);}
+    void AddProduct( Species  &  species){products.push_back(&species);}
 
-  double GetFlux() const ; 
-private:
+    const std::vector<  Species * > & GetReactants() const { return reactants;}
+    const std::vector<  Species * > & GetProducts() const { return products;}
 
-  RateConstant rate; // A member variable for the class to store the name of the system.
-  std::vector< Species * > reactants;
-  std::vector< Species * > products;
-};
+    void ContributeToRatesOfChange() const ;
 
-std::ostream & operator<<(std::ostream &s, const Reaction& reaction);
+    double GetFlux() const ; 
+  private:
+
+    RateConstant rate; // A member variable for the class to store the name of the system.
+    std::vector< Species * > reactants;
+    std::vector< Species * > products;
+  };
+}
+std::ostream & operator<<(std::ostream &s, const reactor::Reaction& reaction);
 
 #endif //ONCE_REACTION_H

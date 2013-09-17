@@ -3,7 +3,7 @@
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/lexical_cast.hpp>
 
-ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
+reactor::ReactionSystem * reactor::ReactionSystemParser::FromStream(std::istream & source){
 	ReactionSystem *result= new ReactionSystem();
 
 	// The source stream is assumed to look like:
@@ -38,7 +38,7 @@ ReactionSystem * ReactionSystemParser::FromStream(std::istream & source){
   	return result;
 }
 
-Species * ReactionSystemParser::NewOrFind(ReactionSystem * result,const std::string &name)
+reactor::Species * reactor::ReactionSystemParser::NewOrFind(ReactionSystem * result,const std::string &name)
 {
 	if (species_map.find(name) == species_map.end())
 	{
@@ -47,7 +47,7 @@ Species * ReactionSystemParser::NewOrFind(ReactionSystem * result,const std::str
 	return species_map[name];
 }
 
-void ReactionSystemParser::ParseLine(std::string & line, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate)
+void reactor::ReactionSystemParser::ParseLine(std::string & line, std::vector<std::string>& reactant_names, std::vector<std::string> & product_names, double & rate)
 {
 	std::string piece("");
 	std::string separator("");

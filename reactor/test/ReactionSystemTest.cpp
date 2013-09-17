@@ -1,6 +1,8 @@
 #include "ReactionSystem.h" // Include the code that we are testing
 #include <gtest/gtest.h> // Include the google test framework
 
+using namespace reactor;
+
 class ReactionSystemTest: public ::testing::Test {
 protected:
 	ReactionSystem myReactionSystem;
