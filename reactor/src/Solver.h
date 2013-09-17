@@ -1,5 +1,8 @@
 #include "ReactionSystemParser.h"
 
+
+#ifndef ONCE_SOLVER
+#define ONCE_SOLVER
 class Solver
 {
 public:
@@ -21,3 +24,4 @@ private:
 	std::ostream & result;
 
 };
+#endif
