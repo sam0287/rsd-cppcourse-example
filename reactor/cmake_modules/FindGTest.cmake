@@ -21,7 +21,7 @@ endif(MINGW)
 ExternalProject_Add(
     googletest
     PREFIX ${EXTERNAL_ROOT}
-    SVN_REPOSITORY http://googletest.googlecode.com/svn/trunk/
+    SVN_REPOSITORY http://googletest.googlecode.com/svn/tags/release-1.6.0/
     TIMEOUT 10
     # Force separate output paths for debug and release builds to allow easy
     # identification of correct lib in subsequent TARGET_LINK_LIBRARIES commands
