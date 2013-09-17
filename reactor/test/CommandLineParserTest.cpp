@@ -9,21 +9,24 @@ public:
 	std::vector<std::string> arguments;
 	CommandLineParserTest(): argument_buffer(), arguments()
 	{
+		arguments.push_back("command_name");
 		arguments.push_back("filename");
+		arguments.push_back("1.5");
 		arguments.push_back("100.0");
 		arguments.push_back("0.0");
-		argument_buffer.push_back(arguments[0].c_str());
-		argument_buffer.push_back(arguments[1].c_str());
-		argument_buffer.push_back(arguments[2].c_str());
+		for (std::vector<std::string>::iterator argument_iterator=arguments.begin(); argument_iterator!=arguments.end(); argument_iterator++)
+		{
+			argument_buffer.push_back(argument_iterator->c_str());
+		}
 		argv=&argument_buffer[0];
 		argc=arguments.size();
-
 	};
 };
 
 TEST_F(CommandLineParserTest, CommandLineParserCanParse) {
 	CommandLineParser parser(argc,argv);
 	EXPECT_EQ("filename",parser.GetReactionSystemFileName());
+	EXPECT_EQ(1.5,parser.GetFinalTime());
 	std::vector<double> expected_initial_conditions;
 	expected_initial_conditions.push_back(100.0);
 	expected_initial_conditions.push_back(0.0);
