@@ -16,7 +16,7 @@ public:
 };
 
 TEST_F(SolverTest, SolverCanParse) {
-	EXPECT_EQ("Time: [A, B, ]\n",result.str());
+	EXPECT_EQ("#Time A B \n",result.str());
 }
 
 TEST_F(SolverTest, SolverCanSolve) {

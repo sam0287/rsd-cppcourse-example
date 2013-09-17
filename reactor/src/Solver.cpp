@@ -7,13 +7,13 @@ Solver::Solver(std::istream & source, std::ostream & result):
 	parser(),result(result)
 {
 	system = parser.FromStream(source);
-	result << "Time: [" ;
+	result << "#Time " ;
 	for (std::vector<Species*>::const_iterator species_iterator=system->GetSpecies().begin();
 		species_iterator!=system->GetSpecies().end(); species_iterator++)
 	{
-				result << (*species_iterator)->GetName() << ", " << std::flush;
+				result << (*species_iterator)->GetName() << " " << std::flush;
 	}
-	result << "]\n";
+	result << std::endl;
 }
 
 Solver::~Solver() {
@@ -32,9 +32,9 @@ void Solver::operator() ( const std::vector<double> &x , std::vector<double> &dx
 }
 
 void Solver::observe_integration(const std::vector<double> &concentrations , const double time){
-	result << time << ": [" << std::flush;
+	result << time << " " << std::flush;
 	for (unsigned int i=0; i<concentrations.size();i++){
-		result << concentrations[i] <<  ", " << std::flush;
+		result << concentrations[i] <<  " " << std::flush;
 	}
-	result << "]" << std::endl;
+	result << std::endl;
 }
