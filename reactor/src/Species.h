@@ -11,9 +11,13 @@ namespace reactor
   public:
     Species(const std::string &input_name); // Declare constructor function.
     const std::string & GetName() const;// Declare a get name function.
+    void   SetConcentration(double new_concentration) {concentration=new_concentration;} // Set concentration
+    double GetConcentration() const {return concentration;}
 
   private:
     std::string name; // A member variable for the class to store the name of the system.
+    double concentration;
+    double rate_of_change;
   };
 }
 
