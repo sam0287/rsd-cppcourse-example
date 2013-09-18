@@ -12,7 +12,6 @@ protected:
 	};
 };
 
-// Test that the system has a name as expected.
 TEST_F(ReactionTest, ReactionCanExist) { // First argument is test group, second is test name
  // Would crash if we couldn't instantiate a reaction.
 }
