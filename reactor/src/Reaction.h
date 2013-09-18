@@ -10,10 +10,17 @@
 
 namespace reactor{
 
+  typedef double RateConstant;
+
   class Reaction // A "class" is a user defined type with built-in functions
   {   
   public:
-    Reaction(); // Declare constructor function.
+    Reaction(RateConstant rate); // Declare constructor function.
+    RateConstant GetRate() const;
+
+  private:
+
+    RateConstant rate; // A member variable for the class to store the reaction rate
   };
 }
 

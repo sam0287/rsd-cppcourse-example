@@ -7,13 +7,13 @@ class ReactionTest: public ::testing::Test {
 protected:
 	Reaction myReaction;
 	ReactionTest():
-		myReaction()
+		myReaction(5.0)
 	{
 	};
 };
 
-TEST_F(ReactionTest, ReactionCanExist) { // First argument is test group, second is test name
- // Would crash if we couldn't instantiate a reaction.
+TEST_F(ReactionTest, ReactionHasRate) { // First argument is test group, second is test name
+  EXPECT_EQ(5.0, myReaction.GetRate()); // Assert that the reaction rate should be as expected
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
