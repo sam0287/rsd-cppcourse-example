@@ -10,14 +10,11 @@ TEST(SpeciesTest, SpeciesHasAName) { // First argument is test group, second is 
   Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ("SomeName", mySpecies.GetName()); // Assert that the name should be as expected
 }
-
-// Test that the system has a name as expected.
 TEST(SpeciesTest, SpeciesHasADefaultConcentration) { // First argument is test group, second is test name
   Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ(0, mySpecies.GetConcentration()); // Assert that the name should be as expected
 }
 
-// Test that the system has a name as expected.
 TEST(SpeciesTest, CanSetSpeciesConcentration) { // First argument is test group, second is test name
   Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ(0, mySpecies.GetConcentration()); // Assert that the name should be as expected
@@ -25,13 +22,11 @@ TEST(SpeciesTest, CanSetSpeciesConcentration) { // First argument is test group,
   EXPECT_EQ(2.0, mySpecies.GetConcentration()); // Assert that the name should be as expected
 }
 
-// Test that the system has a name as expected.
 TEST(SpeciesTest, SpeciesHasADefaultRateOfChange) { // First argument is test group, second is test name
   Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ(0, mySpecies.GetRateOfChange()); // Assert that the name should be as expected
 }
 
-// Test that the system has a name as expected.
 TEST(SpeciesTest, CanContributeToSpeciesRateOfChange) { // First argument is test group, second is test name
   Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ(0, mySpecies.GetConcentration()); // Assert that the name should be as expected
@@ -42,7 +37,6 @@ TEST(SpeciesTest, CanContributeToSpeciesRateOfChange) { // First argument is tes
   EXPECT_EQ(5.0, mySpecies.GetRateOfChange()); // Assert that the name should be as expected
 }
 
-// Test that the system has a name as expected.
 TEST(SpeciesTest, CanResetRateOfChange) { // First argument is test group, second is test name
   Species mySpecies("SomeName"); // Create a species with a specified name
   EXPECT_EQ(0, mySpecies.GetConcentration()); // Assert that the name should be as expected
