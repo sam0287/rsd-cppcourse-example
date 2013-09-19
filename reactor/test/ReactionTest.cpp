@@ -31,7 +31,7 @@ protected:
 };
 
 TEST_F(ReactionTest, ReactionHasRate) { // First argument is test group, second is test name
-  EXPECT_EQ(5.0, myReaction.GetRate()); // Assert that the name should be as expected
+  EXPECT_EQ(5.0, myReaction.GetRate()); // Assert that the reaction rate should be as expected
 }
 
 TEST_F(ReactionTest, ReactionCanHaveReactant) {
