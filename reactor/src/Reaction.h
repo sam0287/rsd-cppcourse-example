@@ -31,6 +31,5 @@ namespace reactor{
     std::vector< Species > products;
   };
 }
-std::ostream & operator<<(std::ostream &s, const reactor::Reaction& reaction);
 
 #endif //ONCE_REACTION_H
