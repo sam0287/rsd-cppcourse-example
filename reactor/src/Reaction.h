@@ -18,10 +18,19 @@ namespace reactor{
     Reaction(RateConstant rate); // Declare constructor function.
     RateConstant GetRate() const; // Const because it doesn't change the rate
 
+    void AddReactant( Species species){reactants.push_back(species);}
+    void AddProduct( Species species){products.push_back(species);}
+
+    std::vector<  Species > GetReactants() const { return reactants;}
+    std::vector<  Species > GetProducts() const { return products;}
+
   private:
 
     RateConstant rate; // A member variable for the class to store the reaction rate
+    std::vector< Species > reactants;
+    std::vector< Species > products;
   };
 }
+std::ostream & operator<<(std::ostream &s, const reactor::Reaction& reaction);
 
 #endif //ONCE_REACTION_H

@@ -1,7 +1,7 @@
 #include "Reaction.h" // Include the declaration of the Reaction..
 
 reactor::Reaction::Reaction(RateConstant rate):
-    rate(rate)
+    rate(rate), reactants(), products()
   {
     // do nothing
   }
