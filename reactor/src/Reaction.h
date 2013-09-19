@@ -27,6 +27,8 @@ namespace reactor{
     const std::vector<  Species * > & GetReactants() const { return reactants;}
     const std::vector<  Species * > & GetProducts() const { return products;}
 
+    void ContributeToRatesOfChange() const ;
+
     double GetFlux() const ; 
   private:
 
