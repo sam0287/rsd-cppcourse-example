@@ -19,6 +19,14 @@ protected:
 		oxygen("O"), 
 		calcium_carbonate("CaCO3")
 	{
+		calcium.SetConcentration(2.0);
+		carbon.SetConcentration(3.0);
+		oxygen.SetConcentration(5.0);
+		calcium_carbonate.SetConcentration(7.0);
+		myReaction.AddReactant(calcium);
+		myReaction.AddReactant(carbon);
+		myReaction.AddReactant(oxygen);
+		myReaction.AddProduct(calcium_carbonate);
 	};
 };
 
@@ -42,6 +50,10 @@ TEST_F(ReactionTest, ReactionCanHaveMultipleReactants) {
 TEST_F(ReactionTest, ReactionCanHaveProduct) {
 	emptyReaction.AddProduct(calcium_carbonate);
 	EXPECT_EQ(emptyReaction.GetProducts()[0].GetName(), "CaCO3");
+}
+
+TEST_F(ReactionTest, ReactionCanCalculateFlux) {
+	EXPECT_EQ(5.0*2.0*3.0*5.0, myReaction.GetFlux());
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests

@@ -24,6 +24,7 @@ namespace reactor{
     const std::vector<  Species > & GetReactants() const { return reactants;}
     const std::vector<  Species > & GetProducts() const { return products;}
 
+    double GetFlux() const ; 
   private:
 
     RateConstant rate; // A member variable for the class to store the reaction rate
