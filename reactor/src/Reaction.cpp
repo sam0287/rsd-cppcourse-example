@@ -6,7 +6,7 @@ reactor::Reaction::Reaction(RateConstant rate):
     // do nothing
   }
 
-reactor::RateConstant reactor::Reaction::GetRate() const
+reactor::RateConstant reactor::Reaction::GetRate() const // const because it doesn't change the rate
 { 
 	return rate; // give the rate result back
 }
