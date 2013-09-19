@@ -36,7 +36,8 @@ TEST_F(ReactionTest, ReactionHasRate) { // First argument is test group, second 
 
 TEST_F(ReactionTest, ReactionCanHaveReactant) {
 	emptyReaction.AddReactant(calcium);
-	EXPECT_EQ(emptyReaction.GetReactants()[0].GetName(),"Ca");
+	EXPECT_EQ(emptyReaction.GetReactants()[0]->GetName(),"Ca");
+	EXPECT_EQ(emptyReaction.GetReactants()[0], &calcium);
 }
 
 TEST_F(ReactionTest, ReactionCanHaveMultipleReactants) {
@@ -44,12 +45,17 @@ TEST_F(ReactionTest, ReactionCanHaveMultipleReactants) {
 	emptyReaction.AddReactant(carbon);
 	emptyReaction.AddReactant(oxygen);
 	ASSERT_EQ(emptyReaction.GetReactants().size(),3);
-	EXPECT_EQ(emptyReaction.GetReactants()[0].GetName(),"Ca");
+	EXPECT_EQ(emptyReaction.GetReactants()[0]->GetName(),"Ca");
+	EXPECT_EQ(emptyReaction.GetReactants()[0], &calcium);
+	EXPECT_EQ(emptyReaction.GetReactants()[1], &carbon);
+	EXPECT_EQ(emptyReaction.GetReactants()[2], &oxygen);
+
 }
 
 TEST_F(ReactionTest, ReactionCanHaveProduct) {
 	emptyReaction.AddProduct(calcium_carbonate);
-	EXPECT_EQ(emptyReaction.GetProducts()[0].GetName(), "CaCO3");
+	EXPECT_EQ(emptyReaction.GetProducts()[0]->GetName(), "CaCO3");
+	EXPECT_EQ(emptyReaction.GetProducts()[0], &calcium_carbonate);
 }
 
 TEST_F(ReactionTest, ReactionCanCalculateFlux) {
