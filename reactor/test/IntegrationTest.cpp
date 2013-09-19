@@ -46,7 +46,6 @@ void observe_integration(const std::vector<double> &concentrations , const doubl
 	std::cout << "]" << std::endl;
 }
 
-// Test that the system has a name as expected.
 TEST_F(SimpleDecaySystemTest, ODEINTCanIntegrate) { // First argument is test group, second is test name
 	std::vector<double> concentrations=simple_decay_system.GetConcentrations();
 	WrapReactionSystemForODEINT wrapper(simple_decay_system);

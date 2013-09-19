@@ -8,9 +8,7 @@ reactor::Reaction::Reaction(RateConstant rate):
 
 reactor::RateConstant reactor::Reaction::GetRate() const
 { 
-	// a function whose return type is a standard string, with no input arguments
-	// the ampersand and const will be explained later.
-	return rate; // give the name variable result back
+	return rate; // give the rate variable result back
 }
 
 void reactor::Reaction::ContributeToRatesOfChange() const 

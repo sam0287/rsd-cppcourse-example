@@ -11,7 +11,6 @@ reactor::ReactionSystem * reactor::ReactionSystemParser::FromStream(std::istream
   	// A + B + C > rate > D
   	// D + E > rate2 > A
 
-  	// we need to, for each line,
   	while (source.good())
   	{
   		std::string line;
