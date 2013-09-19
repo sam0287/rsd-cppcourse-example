@@ -16,7 +16,7 @@ namespace reactor{
   {   
   public:
     Reaction(RateConstant rate); // Declare constructor function.
-    RateConstant GetRate() const;
+    RateConstant GetRate() const; // Const because it doesn't change the rate
 
   private:
 
