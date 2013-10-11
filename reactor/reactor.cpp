@@ -9,10 +9,11 @@ int main(int argument_count, char ** command_line_arguments) // Define the main 
   std::cout << "The 'boiler plate' main program is running." << std::endl; // Print out a friendly message.
   // The << symbol is an output operator, while std::cout tells the message to go to "standard output", i.e. your terminal.
   
-  reactor::Species calcium("Ca"); // You can declare new variables like this.
+  reactor::Species calcium("Ca", 0.0); // You can declare new variables like this.
   // "Species" is a user defined type, or "class".
   
-  std::cout << "A species was created called \"" << calcium.GetName() << "\"" << std::endl; // You use a dot to access a method of a class.
+  std::cout << "A species was created called \"" << calcium.GetName() << "\"" << "with concentration" << calcium.GetConcentration() << std::endl; // You use a dot to access a method of a class.
+  
   // To get a quote symbol into a string, escape it with a slash
   // << can be used to chain several outputs together, in this case, a literal string,
   // and the output from calling GetName()
