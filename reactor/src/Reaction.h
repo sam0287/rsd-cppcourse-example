@@ -1,23 +1,32 @@
 #include <string> // use the string capabilities from the standard library
+#include <vector>
+#include <iostream>
 
-#ifndef ONCE_SPECIES_H
-#define ONCE_SPECIES_H
+#include "Species.h"
+
+#ifndef ONCE_REACTION_H
+#define ONCE_REACTION_H
 
 namespace reactor
 {
+  typedef double RateConstant
 
-  class Species // A "class" is a user defined type with built-in functions
+  class Reaction // A "class" is a user defined type with built-in functions
   {   
   public:
-    Species(const std::string &input_name, const float &input_concentration); // Declare constructor function.
-    const std::string & GetName() const; // Declare a get name function.
-	const float & GetConcentration() const; // Declare a get concentration function.
+    Reaction(RateConstant rate); // Declare constructor function.
+    RateConstant GetRate() const; // Const because it doesn't change the rate
 	
+	void AddReactant( Species & species){reactants.push_back(species);}
+	void AddProduct( Species & species){products.push_back(species);}
 	
+	const std::vector< Species > & GetReactants() const { return reactants;}
+	const std::vector< Species > & GetProducts() const { return products;}
+	
+	double GetFlux() const ;
   private:
-    std::string name; // A member variable for the class to store the name of the system.
-	float concentration;
-  };
+	
+	}
 }
 
-#endif //ONCE_SPECIES_H
+#endif //ONCE_REACTION_H

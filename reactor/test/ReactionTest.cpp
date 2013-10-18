@@ -1,18 +1,44 @@
-#include "Species.h" // Include the code that we are testing
+#include "Reaction.h" // Include the code that we are testing
 #include <gtest/gtest.h> // Include the google test framework
 
 using namespace reactor;
 
-// Test that the system has a name as expected.
-TEST(SpeciesTest, SpeciesHasAName) { // First argument is test group, second is test name
-  Species mySpecies("SomeName", 0.0); // Create a species with a specified name
-  EXPECT_EQ("SomeName", mySpecies.GetName()); // Assert that the name should be as expected
+class ReactionTest: public ::testing::Test {
+protected:
+  Reaction myReaction;
+  ReactionTest():
+    myReaction()
+  {
+  };
+};
+
+// Not sure what this is for.
+TEST_F(ReactionTest, ReactionCanExist) { // First argument is test group, second is test name
+// Would crash if we couldn't instantiate a reaction.
 }
 
-// Test that the system has a concentration as expected.
-TEST(SpeciesTest, SpeciesHasAConcentration) { // First argument is test group, second is test name
-  Species mySpecies("SomeName", 0.1); // Create a species with a specified concentration
-  EXPECT_FLOAT_EQ(0.0, mySpecies.GetConcentration()); // Assert that the concentration should be as expected
+TEST_F(ReactionTest, ReactionCanHaveRate) { // Rate test name
+  emptyReaction.AddRate(0.1);
+  EXPECT_EQ(emptyReaction.GetRate(),0.1);
+}
+
+// Test that the system has a name as expected.
+TEST_F(ReactionTest, ReactionCanHaveReactant) {
+  emptyReaction.AddReactant(calcium);
+  EXPECT_EQ(emptyReaction.GetReactants()[0].GetName(),"Ca");
+}
+
+TEST_F(ReactionTest, ReactionCanHaveMultipleReactants) {
+  emptyReaction.AddReactant(calcium);
+  emptyReaction.AddReactant(carbon);
+  emptyReaction.AddReactant(oxygen);
+  ASSERT_EQ(emptyReaction.GetReactants().size(),3)
+  EXPECT_EQ(emptyReaction.GetReactants()[0].GetName(),"Ca");
+}
+
+TEST_F(ReactionTest, ReactionCanHaveProduct) {
+  emptyReaction.AddProduct(calcium_carbonate);
+  EXPECT_EQ(emptyReaction.GetProducts()[0].GetName(),"CaC03");
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests

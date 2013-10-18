@@ -1,22 +1,22 @@
-#include "Species.h" // Include the declaration of the Species..
+#include "Reaction.h" // Include the declaration of the Reaction..
 
-reactor::Species::Species(const std::string &input_name, const float &input_concentration):
-    name(input_name), // Initialise the name member variable from the input argument.
-	concentration(input_concentration)
-  {
+reactor::Reaction::Reaction(RateConstant rate):
+    rate(rate), reactants(), products()
+{
     // do nothing
-  }
-
-const std::string & reactor::Species::GetName() const
-{ 
-	// a function whose return type is a standard string, with no input arguments
-	// the ampersand and const will be explained later.
-	return name; // give the name variable result back
 }
 
-const float & reactor::Species::GetConcentration() const
-{ 
-	// a function whose return type is a standard string, with no input arguments
-	// the ampersand and const will be explained later.
-	return concentration; // give the name variable result back
+reactor::RateConstant reactor::Reaction::GetRate() const //const because it doesn't change rate
+{
+    return rate;//give the rate result back
+}
+  
+double reactor::Reaction::GetFlux() const {
+  // the product of the concentrations of the reactants, times the rate constant
+  double flux=rate;
+  for (std::vector<Species>::const_iterator each_reactant=GetReactants().begin(); each_reactant!=GetReactants().end();
+  {
+    flux*=each_reactant->GetConcentration();
+  }
+  return flux;
 }
